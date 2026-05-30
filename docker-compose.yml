@@ -45,3 +45,7 @@ services:
 
 volumes:
   postgres_data:
+networks:
+  default:
+    external: true
+    name: docker_default

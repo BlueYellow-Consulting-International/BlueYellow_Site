@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:14
+    env_file: .env
+    container_name: db
+    restart: unless-stopped
+    ports:
+      - 5432
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+      - ./postgres/init:/docker-entrypoint-initdb.d:ro
+
+  flectra:
+    image: flectrahq/flectra
+    env_file: .env
+    container_name: flectra
+    restart: unless-stopped
+    ports:
+      - "7073:7073"
+    volumes:
+      - flectra.conf:/etc/flectra.conf
+volumes:
+  postgres_data:
+  db_init.sql:
+  flectra.conf:  
+networks:
+  default:
+    name: docker_default
+    external: true
+
