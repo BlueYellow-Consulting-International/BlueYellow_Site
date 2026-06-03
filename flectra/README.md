@@ -74,6 +74,7 @@ See [docs/reverse-proxy/nginx-proxy-manager.md](docs/reverse-proxy/nginx-proxy-m
 2. Forward to `http://flectra:7073` (not `localhost`)
 3. Enable **Websockets Support** on the proxy host
 4. Set `FLECTRA_PROXY_MODE=1` and `FLECTRA_WEB_BASE_URL=https://...` in `.env`
+5. Forward `X-Forwarded-Host` to Flectra (see NPM doc §4 — fixes editor iframe mixed content)
 
 Generic nginx headers (also used in the NPM Advanced tab):
 

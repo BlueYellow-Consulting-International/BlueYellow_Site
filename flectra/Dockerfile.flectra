@@ -4,6 +4,9 @@ USER root
 
 COPY docker/entrypoint.sh /usr/local/bin/blueyellow-entrypoint.sh
 COPY docker/flectra-start.sh /usr/local/bin/blueyellow-flectra-start
+COPY docker/patches/proxy-mode-forwarded-host.patch /tmp/proxy-mode-forwarded-host.patch
+RUN patch -p1 -d /opt/flectra < /tmp/proxy-mode-forwarded-host.patch \
+    && rm /tmp/proxy-mode-forwarded-host.patch
 RUN chmod 0755 /usr/local/bin/blueyellow-entrypoint.sh /usr/local/bin/blueyellow-flectra-start
 
 ENTRYPOINT ["/usr/local/bin/blueyellow-entrypoint.sh"]

@@ -75,17 +75,33 @@ proxy_read_timeout 720s;
 proxy_connect_timeout 720s;
 proxy_send_timeout 720s;
 
-proxy_set_header X-Forwarded-Host $host;
-proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-proxy_set_header X-Forwarded-Proto $scheme;
-proxy_set_header X-Forwarded-Host $host;
-proxy_set_header X-Real-IP $remote_addr;
-
 proxy_redirect http:// https://;
 
 add_header Content-Security-Policy "upgrade-insecure-requests" always;
 
 client_max_body_size 500M;
+```
+
+NPM already sets `X-Forwarded-Proto` in `location /` via its built-in `proxy.conf`. Do **not** duplicate `proxy_set_header` lines in the Advanced tab at server level only — nginx does not inherit them into `location /`, and Flectra will keep generating `http://` redirects and iframe URLs.
+
+### Required: `X-Forwarded-Host` on upstream requests
+
+Flectra proxy mode only applies `ProxyFix` when `X-Forwarded-Host` reaches the app. NPM’s `location /` block defines its own `proxy_set_header` directives, so headers added only in the Advanced tab (server level) are ignored.
+
+Create this file on the NPM data volume (survives proxy host edits in the UI):
+
+```bash
+docker exec nginx-proxy-manager-app-1 sh -c 'mkdir -p /data/nginx/custom && cat > /data/nginx/custom/server_proxy.conf << "EOF"
+more_set_input_headers "X-Forwarded-Host: $host";
+EOF
+'
+docker exec nginx-proxy-manager-app-1 nginx -s reload
+```
+
+Alternatively, add inside the generated `location /` block (before `include conf.d/include/proxy.conf;`):
+
+```nginx
+proxy_set_header X-Forwarded-Host $host;
 ```
 
 The `Content-Security-Policy` header helps when the parent page is HTTPS but Flectra still generates HTTP links for embedded editor assets.
@@ -117,7 +133,7 @@ docker compose exec -T postgres psql -U db -d flectra \
 | Symptom | Likely cause | Fix |
 |---------|--------------|-----|
 | Editor spinner never finishes | WebSockets blocked | Enable **Websockets Support** in NPM |
-| Editor iframe blank | Mixed HTTP/HTTPS content | Set `FLECTRA_WEB_BASE_URL` to `https://...` and `FLECTRA_PROXY_MODE=1` |
+| Editor iframe blank / mixed content | `http://` iframe or redirects | Set `FLECTRA_WEB_BASE_URL` to `https://...`, `FLECTRA_PROXY_MODE=1`, and ensure `X-Forwarded-Host` reaches Flectra (see §4) |
 | Assets load from wrong host | Wrong base URL | Fix `FLECTRA_WEB_BASE_URL`, restart Flectra |
 | 502 / timeout on save | Proxy timeout too low | Use the Advanced timeouts above |
 | Works on LAN IP, fails on domain | Old `web.base.url` | Update `FLECTRA_WEB_BASE_URL` and restart |
