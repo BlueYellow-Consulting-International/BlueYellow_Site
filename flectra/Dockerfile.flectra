@@ -2,25 +2,6 @@ FROM flectrahq/flectra
 
 USER root
 
-ARG HOST_UID=1030
-ARG HOST_GID=100
-
-RUN set -eux; \
-    if ! getent group "${HOST_GID}" >/dev/null; then \
-        groupadd --gid "${HOST_GID}" hostuser; \
-    fi; \
-    if ! getent passwd "${HOST_UID}" >/dev/null; then \
-        useradd \
-            --uid "${HOST_UID}" \
-            --gid "${HOST_GID}" \
-            --groups flectra \
-            --create-home \
-            --shell /bin/bash \
-            hostuser; \
-    else \
-        usermod --append --groups flectra "$(getent passwd "${HOST_UID}" | cut -d: -f1)"; \
-    fi
-
 COPY docker/entrypoint.sh /usr/local/bin/blueyellow-entrypoint.sh
 COPY docker/flectra-start.sh /usr/local/bin/blueyellow-flectra-start
 RUN chmod 0755 /usr/local/bin/blueyellow-entrypoint.sh /usr/local/bin/blueyellow-flectra-start
