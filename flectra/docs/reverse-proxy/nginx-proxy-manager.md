@@ -44,10 +44,12 @@ Rules:
 Restart after changing `.env`:
 
 ```bash
-docker compose up -d
+docker compose up -d --build --force-recreate flectra
 ```
 
-`FLECTRA_WEB_BASE_URL` updates Flectra's `web.base.url` on startup. Wrong values here are the most common cause of a blank or spinning website editor behind HTTPS.
+The image must be rebuilt so the startup script inside the container includes proxy support. A plain restart is not enough after the first proxy setup.
+
+`FLECTRA_WEB_BASE_URL` updates Flectra's `web.base.url` on startup and freezes it so admin login cannot revert it to `http://`. Wrong values here are the most common cause of a blank or spinning website editor behind HTTPS.
 
 ## 3. NPM proxy host settings
 
@@ -76,7 +78,10 @@ proxy_send_timeout 720s;
 proxy_set_header X-Forwarded-Host $host;
 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 proxy_set_header X-Forwarded-Proto $scheme;
+proxy_set_header X-Forwarded-Host $host;
 proxy_set_header X-Real-IP $remote_addr;
+
+proxy_redirect http:// https://;
 
 add_header Content-Security-Policy "upgrade-insecure-requests" always;
 
