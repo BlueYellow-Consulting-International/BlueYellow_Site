@@ -14,9 +14,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.flectra
-      args:
-        HOST_UID: "${HOST_UID}"
-        HOST_GID: "${HOST_GID}"
     image: blueyellow-flectra
     group_add:
       - "1000"

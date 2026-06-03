@@ -7,7 +7,7 @@ The project is designed to be publishable without committing local database or f
 ## What Is Included
 
 - `docker-compose.yaml`: runs PostgreSQL and Flectra on port `7073`.
-- `Dockerfile.flectra`: extends `flectrahq/flectra` with a host UID/GID-aware user and the project startup helper.
+- `Dockerfile.flectra`: extends `flectrahq/flectra` with the project entrypoint and startup helper. UID/GID mapping is handled at container start from `.env`, not at image build time.
 - `docker/flectra-start.sh`: waits for PostgreSQL, installs default modules on a fresh database, and ensures the original theme is active.
 - `flectra.conf`: Flectra config with `/mnt/extra-addons` enabled.
 - `addons/theme_blueyellow`: primary BlueYellow theme and webclient skin.
@@ -24,7 +24,15 @@ id -u
 id -g
 ```
 
-Update `HOST_UID` and `HOST_GID` in `.env` to match your host user.
+Update `HOST_UID` and `HOST_GID` in `.env` to match the user that will own bind-mounted files on the host. You do **not** need to edit `Dockerfile.flectra` for this; the entrypoint creates the matching container user at startup from `.env`.
+
+On a new machine, also ensure the external Docker network exists:
+
+```bash
+docker network create docker_default
+```
+
+If `db` or `flectra` container names are already in use on that host, stop the conflicting containers first or rename the services in `docker-compose.yaml`.
 
 Start the stack:
 
@@ -115,6 +123,26 @@ On a fresh database, that installs these apps by default:
 | `theme_blueyellow` | BlueYellow theme |
 
 Flectra installs each module's dependencies automatically. Keep `website` and `theme_blueyellow` at the end of the list.
+
+## Running On Another Server
+
+Use this checklist when deploying somewhere new:
+
+1. Copy `.env.example` to `.env`.
+2. Set `HOST_UID` and `HOST_GID` to the output of `id -u` and `id -g` for the user running Docker.
+3. Create the shared network if it does not exist: `docker network create docker_default`.
+4. Start with a rebuild: `docker compose up --build`.
+
+Common failures:
+
+| Symptom | Fix |
+|---------|-----|
+| `network docker_default not found` | Run `docker network create docker_default` |
+| `container name "db" is already in use` | Stop the other stack or rename containers in compose |
+| `No passwd entry for UID ...` | Set `HOST_UID`/`HOST_GID` in `.env`, then restart: `docker compose up --build -d` |
+| `Permission denied` on `var/` after deleting data | Remove with root or `docker run --rm -v "$PWD:/work" alpine rm -rf /work/var /work/postgres_data` |
+
+Editing `Dockerfile.flectra` is not required. Set `HOST_UID` and `HOST_GID` in `.env` only; the entrypoint creates the container user when the stack starts.
 
 ## Theme Addons
 
