@@ -12,9 +12,26 @@ CONFIG_FILE="${FLECTRA_CONFIG:-/etc/flectra/flectra.conf}"
 FLECTRA_PROXY_MODE="${FLECTRA_PROXY_MODE:-0}"
 
 PROXY_ARGS=()
-if [ "${FLECTRA_PROXY_MODE}" = "1" ]; then
-    PROXY_ARGS=(--proxy-mode)
-fi
+case "${FLECTRA_PROXY_MODE}" in
+    1|true|True|yes|Yes)
+        PROXY_ARGS=(--proxy-mode)
+        ;;
+esac
+
+prepare_runtime_config() {
+    if [ "${#PROXY_ARGS[@]}" -eq 0 ]; then
+        return 0
+    fi
+
+    RUNTIME_CONFIG="/tmp/flectra.runtime.conf"
+    cp "${CONFIG_FILE}" "${RUNTIME_CONFIG}"
+    if grep -qE '^[;#[:space:]]*proxy_mode[[:space:]]*=' "${RUNTIME_CONFIG}"; then
+        sed -i -E 's/^[;#[:space:]]*proxy_mode[[:space:]]*=.*/proxy_mode = True/' "${RUNTIME_CONFIG}"
+    else
+        printf '\nproxy_mode = True\n' >> "${RUNTIME_CONFIG}"
+    fi
+    CONFIG_FILE="${RUNTIME_CONFIG}"
+}
 
 wait_for_database() {
     python3 - <<PY
@@ -356,8 +373,11 @@ configure_public_url() {
 import flectra
 from flectra import SUPERUSER_ID, api
 from flectra.tools import config
+from urllib.parse import urlparse
 
 public_url = "${FLECTRA_WEB_BASE_URL}".rstrip("/")
+parsed = urlparse(public_url)
+public_host = parsed.netloc.lower()
 
 config.parse_config([
     "--config=${CONFIG_FILE}",
@@ -371,9 +391,17 @@ registry = flectra.registry("${DB_NAME}")
 with registry.cursor() as cr:
     env = api.Environment(cr, SUPERUSER_ID, {})
     params = env["ir.config_parameter"].sudo()
-    current = params.get_param("web.base.url", "")
-    if current != public_url:
-        params.set_param("web.base.url", public_url)
+    params.set_param("web.base.url", public_url)
+    params.set_param("web.base.url.freeze", "True")
+
+    for website in env["website"].sudo().search([]):
+        domain = (website.domain or "").rstrip("/")
+        if not domain:
+            continue
+        domain_host = urlparse(domain).netloc.lower()
+        if domain.startswith("http://") and domain_host == public_host:
+            website.domain = public_url
+
     cr.commit()
 PY
 }
@@ -392,6 +420,8 @@ if [ "${FLECTRA_AUTO_INIT:-1}" = "1" ]; then
     configure_public_url
     clear_generated_assets
 fi
+
+prepare_runtime_config
 
 exec flectra-bin \
     --config="${CONFIG_FILE}" \

@@ -55,14 +55,14 @@ FLECTRA_PROXY_MODE=1
 FLECTRA_WEB_BASE_URL=https://your-public-domain.example.com
 ```
 
-Then restart:
+Then restart (rebuild required the first time you enable proxy mode):
 
 ```bash
-docker compose up -d
+docker compose up -d --build --force-recreate flectra
 ```
 
 - `FLECTRA_PROXY_MODE=1` enables [proxy mode](https://doc.flectrahq.com/developer/reference/cli.html#cmdoption-flectra-bin-proxy-mode) so Flectra trusts `X-Forwarded-*` headers.
-- `FLECTRA_WEB_BASE_URL` sets Flectra's `web.base.url`. This is **required** for the website editor over HTTPS; without it the editor iframe often fails to load because assets are generated with the wrong scheme/host.
+- `FLECTRA_WEB_BASE_URL` sets Flectra's `web.base.url` and freezes it. Without this, admin login can overwrite the base URL back to `http://` when proxy mode is missing, which breaks the editor iframe.
 
 Leave both unset (or `FLECTRA_PROXY_MODE=0`) when accessing Flectra directly on port `7073`.
 
