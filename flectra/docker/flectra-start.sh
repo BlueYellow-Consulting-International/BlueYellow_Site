@@ -9,6 +9,12 @@ DB_NAME="${FLECTRA_DB:-flectra}"
 DEFAULT_THEME="${FLECTRA_DEFAULT_THEME:-theme_blueyellow}"
 INIT_MODULES="${FLECTRA_INIT_MODULES:-crm,sale_management,account_accountant,project,project_todo,calendar,contacts,hr,hr_attendance,hr_contract,hr_expense,hr_recruitment,hr_skills,mass_mailing,survey,website_event,website_hr_recruitment,website_slides,website_sale,website,theme_blueyellow}"
 CONFIG_FILE="${FLECTRA_CONFIG:-/etc/flectra/flectra.conf}"
+FLECTRA_PROXY_MODE="${FLECTRA_PROXY_MODE:-0}"
+
+PROXY_ARGS=()
+if [ "${FLECTRA_PROXY_MODE}" = "1" ]; then
+    PROXY_ARGS=(--proxy-mode)
+fi
 
 wait_for_database() {
     python3 - <<PY
@@ -341,6 +347,37 @@ with registry.cursor() as cr:
 PY
 }
 
+configure_public_url() {
+    if [ -z "${FLECTRA_WEB_BASE_URL:-}" ]; then
+        return 0
+    fi
+
+    PYTHONPATH=/opt/flectra/server python3 - <<PY
+import flectra
+from flectra import SUPERUSER_ID, api
+from flectra.tools import config
+
+public_url = "${FLECTRA_WEB_BASE_URL}".rstrip("/")
+
+config.parse_config([
+    "--config=${CONFIG_FILE}",
+    "--db_host=${DB_HOST}",
+    "--db_port=${DB_PORT}",
+    "--db_user=${DB_USER}",
+    "--db_password=${DB_PASSWORD}",
+])
+
+registry = flectra.registry("${DB_NAME}")
+with registry.cursor() as cr:
+    env = api.Environment(cr, SUPERUSER_ID, {})
+    params = env["ir.config_parameter"].sudo()
+    current = params.get_param("web.base.url", "")
+    if current != public_url:
+        params.set_param("web.base.url", public_url)
+    cr.commit()
+PY
+}
+
 if [ "${FLECTRA_AUTO_INIT:-1}" = "1" ]; then
     wait_for_database
     reset_broken_database
@@ -352,6 +389,7 @@ if [ "${FLECTRA_AUTO_INIT:-1}" = "1" ]; then
     fi
     activate_default_theme
     ensure_homepage_content
+    configure_public_url
     clear_generated_assets
 fi
 
@@ -361,4 +399,5 @@ exec flectra-bin \
     --db_port="${DB_PORT}" \
     --db_user="${DB_USER}" \
     --db_password="${DB_PASSWORD}" \
+    "${PROXY_ARGS[@]}" \
     "$@"
