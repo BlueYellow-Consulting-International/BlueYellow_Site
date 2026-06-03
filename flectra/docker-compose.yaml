@@ -27,6 +27,8 @@ services:
       FLECTRA_DB: "${FLECTRA_DB:-flectra}"
       FLECTRA_INIT_MODULES: "${FLECTRA_INIT_MODULES:-crm,sale_management,account_accountant,project,project_todo,calendar,contacts,hr,hr_attendance,hr_contract,hr_expense,hr_recruitment,hr_skills,mass_mailing,survey,website_event,website_hr_recruitment,website_slides,website_sale,website,theme_blueyellow}"
       FLECTRA_DEFAULT_THEME: "${FLECTRA_DEFAULT_THEME:-theme_blueyellow}"
+      FLECTRA_PROXY_MODE: "${FLECTRA_PROXY_MODE:-0}"
+      FLECTRA_WEB_BASE_URL: "${FLECTRA_WEB_BASE_URL:-}"
     ports:
       - "7073:7073"
     volumes:

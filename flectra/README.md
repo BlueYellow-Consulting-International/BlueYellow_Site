@@ -46,6 +46,46 @@ Open Flectra at:
 http://localhost:7073/
 ```
 
+## Reverse Proxy / Proxy Mode
+
+When Flectra sits behind a trusted reverse proxy (nginx, Traefik, Caddy, **Nginx Proxy Manager**, etc.), set in `.env`:
+
+```text
+FLECTRA_PROXY_MODE=1
+FLECTRA_WEB_BASE_URL=https://your-public-domain.example.com
+```
+
+Then restart:
+
+```bash
+docker compose up -d
+```
+
+- `FLECTRA_PROXY_MODE=1` enables [proxy mode](https://doc.flectrahq.com/developer/reference/cli.html#cmdoption-flectra-bin-proxy-mode) so Flectra trusts `X-Forwarded-*` headers.
+- `FLECTRA_WEB_BASE_URL` sets Flectra's `web.base.url`. This is **required** for the website editor over HTTPS; without it the editor iframe often fails to load because assets are generated with the wrong scheme/host.
+
+Leave both unset (or `FLECTRA_PROXY_MODE=0`) when accessing Flectra directly on port `7073`.
+
+### Nginx Proxy Manager
+
+See [docs/reverse-proxy/nginx-proxy-manager.md](docs/reverse-proxy/nginx-proxy-manager.md) for a full NPM checklist. Minimum requirements:
+
+1. NPM and Flectra on the same Docker network (`docker_default`)
+2. Forward to `http://flectra:7073` (not `localhost`)
+3. Enable **Websockets Support** on the proxy host
+4. Set `FLECTRA_PROXY_MODE=1` and `FLECTRA_WEB_BASE_URL=https://...` in `.env`
+
+Generic nginx headers (also used in the NPM Advanced tab):
+
+```nginx
+proxy_set_header Host $host;
+proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+proxy_set_header X-Forwarded-Proto $scheme;
+proxy_set_header X-Forwarded-Host $host;
+add_header Content-Security-Policy "upgrade-insecure-requests" always;
+```
+
 ## Runtime Data
 
 The following paths are local runtime state and should not be committed:
