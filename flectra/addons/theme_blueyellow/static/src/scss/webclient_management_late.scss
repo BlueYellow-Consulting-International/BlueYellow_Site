@@ -1,0 +1,339 @@
+/*
+ * Late webclient skin for Flectra management pages. This complements the
+ * website theme by covering the logged-in app shell, forms, lists, kanban,
+ * search, dropdowns, dialogs, and common action buttons.
+ */
+:root {
+    --by-admin-bg: #1a1c22;
+    --by-admin-bg-deep: #14161b;
+    --by-admin-surface: #242731;
+    --by-admin-surface-raised: #2d313b;
+    --by-admin-surface-soft: #353946;
+    --by-admin-border: #3b404d;
+    --by-admin-border-strong: #4a5060;
+    --by-admin-text: #f7f8fb;
+    --by-admin-body: #d7dbe3;
+    --by-admin-muted: #aeb5c1;
+    --by-admin-faint: #848c9a;
+    --by-admin-blue: #2f80ed;
+    --by-admin-yellow: #ffd700;
+    --by-admin-yellow-soft: #ffe66d;
+}
+
+body .o_web_client {
+    background:
+        radial-gradient(circle at 7% 0%, rgba(47, 128, 237, 0.11), transparent 22rem),
+        radial-gradient(circle at 88% 4%, rgba(255, 215, 0, 0.055), transparent 20rem),
+        var(--by-admin-bg) !important;
+    color: var(--by-admin-body) !important;
+}
+
+body .o_web_client .o_action_manager,
+body .o_web_client .o_action,
+body .o_web_client .o_content,
+body .o_web_client .o_view_controller,
+body .o_web_client .o_renderer {
+    background:
+        linear-gradient(180deg, rgba(47, 128, 237, 0.035), transparent 18rem),
+        var(--by-admin-bg) !important;
+    color: var(--by-admin-body) !important;
+}
+
+body.home_menu_page,
+body.home_menu_page .o_web_client {
+    background:
+        radial-gradient(circle at 16% 8%, rgba(47, 128, 237, 0.13), transparent 24rem),
+        radial-gradient(circle at 84% 0%, rgba(255, 215, 0, 0.055), transparent 20rem),
+        linear-gradient(180deg, #20252b 0%, var(--by-admin-bg) 24rem, var(--by-admin-bg-deep) 100%) !important;
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    color: var(--by-admin-body) !important;
+}
+
+body.home_menu_page .o_action_manager,
+body.home_menu_page .o_action,
+body.home_menu_page .o_content,
+body.home_menu_page #apps_menu,
+body.home_menu_page .o_app_search_results,
+body.home_menu_page .o_app_search_results_sub,
+body.home_menu_page .o_apps_container {
+    background: transparent !important;
+    background-image: none !important;
+    color: var(--by-admin-body) !important;
+}
+
+body.home_menu_page #apps_menu .o_app,
+body.home_menu_page .o_apps_container .o_app,
+body.home_menu_page .o_app_search_results .o_app {
+    background: transparent !important;
+    background-image: none !important;
+}
+
+body.home_menu_page #apps_menu .o_app .o_app_name,
+body.home_menu_page .o_apps_container .o_app .o_app_name,
+body.home_menu_page .o_app_search_results .o_app .o_app_name,
+body.home_menu_page #apps_menu .o_app_name,
+body.home_menu_page .o_apps_container .o_app_name,
+body.home_menu_page .o_app_search_results .o_app_name {
+    color: var(--by-admin-text) !important;
+    font-weight: 700;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+}
+
+body .o_web_client .o_control_panel,
+body .o_web_client .o_cp_top,
+body .o_web_client .o_cp_bottom {
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent),
+        var(--by-admin-surface) !important;
+    border-color: var(--by-admin-border) !important;
+    color: var(--by-admin-body) !important;
+}
+
+body .o_web_client .breadcrumb,
+body .o_web_client .breadcrumb-item,
+body .o_web_client .o_breadcrumb,
+body .o_web_client .o_breadcrumb .breadcrumb-item,
+body .o_web_client .o_control_panel .o_cp_title,
+body .o_web_client .o_control_panel .o_cp_title h1,
+body .o_web_client .o_control_panel .o_last_breadcrumb_item {
+    color: var(--by-admin-text) !important;
+}
+
+body .o_web_client .text-muted,
+body .o_web_client .o_form_label,
+body .o_web_client .o_field_empty,
+body .o_web_client .o_stat_text,
+body .o_web_client .o_stat_value {
+    color: var(--by-admin-muted) !important;
+}
+
+body .o_web_client .o_form_view,
+body .o_web_client .o_form_sheet_bg,
+body .o_web_client .o_form_sheet,
+body .o_web_client .o_kanban_renderer,
+body .o_web_client .o_list_renderer,
+body .o_web_client .o_activity_view,
+body .o_web_client .o_calendar_renderer,
+body .o_web_client .o_pivot_view,
+body .o_web_client .o_graph_view {
+    background: var(--by-admin-bg) !important;
+    color: var(--by-admin-body) !important;
+}
+
+body .o_web_client .o_form_sheet,
+body .o_web_client .o_kanban_record,
+body .o_web_client .o_kanban_card,
+body .o_web_client .card,
+body .o_web_client .o_setting_box,
+body .o_web_client .o_setting_container,
+body .o_web_client .o_notebook .tab-content {
+    background: var(--by-admin-surface) !important;
+    border-color: var(--by-admin-border) !important;
+    color: var(--by-admin-body) !important;
+    box-shadow: 0 0.85rem 1.75rem rgba(0, 0, 0, 0.1);
+}
+
+body .o_web_client .o_group,
+body .o_web_client .o_inner_group,
+body .o_web_client .o_horizontal_separator,
+body .o_web_client .o_notebook .nav-tabs,
+body .o_web_client .o_notebook_headers,
+body .o_web_client .o_form_statusbar {
+    border-color: var(--by-admin-border) !important;
+    color: var(--by-admin-body) !important;
+}
+
+body .o_web_client .o_notebook .nav-link,
+body .o_web_client .o_notebook .nav-link.active,
+body .o_web_client .o_statusbar_status .btn {
+    background: transparent !important;
+    border-color: var(--by-admin-border) !important;
+    color: var(--by-admin-body) !important;
+}
+
+body .o_web_client .o_notebook .nav-link.active,
+body .o_web_client .o_notebook .nav-link:hover,
+body .o_web_client .o_statusbar_status .btn-primary,
+body .o_web_client .o_statusbar_status .btn:hover {
+    background: var(--by-admin-surface-raised) !important;
+    color: var(--by-admin-text) !important;
+}
+
+body .o_web_client table,
+body .o_web_client .table,
+body .o_web_client .o_list_table {
+    --bs-table-bg: var(--by-admin-surface);
+    --bs-table-color: var(--by-admin-body);
+    --bs-table-border-color: var(--by-admin-border);
+    background: var(--by-admin-surface) !important;
+    border-color: var(--by-admin-border) !important;
+    color: var(--by-admin-body) !important;
+}
+
+body .o_web_client .o_list_table thead,
+body .o_web_client .o_list_table thead th,
+body .o_web_client .table thead th {
+    background: var(--by-admin-surface-raised) !important;
+    border-color: var(--by-admin-border) !important;
+    color: var(--by-admin-text) !important;
+}
+
+body .o_web_client .o_list_table tbody tr,
+body .o_web_client .o_list_table tbody td,
+body .o_web_client .o_list_table tbody th,
+body .o_web_client .table tbody tr,
+body .o_web_client .table tbody td,
+body .o_web_client .table tbody th {
+    background: var(--by-admin-surface) !important;
+    border-color: var(--by-admin-border) !important;
+    color: var(--by-admin-body) !important;
+}
+
+body .o_web_client .o_list_table tbody tr:hover,
+body .o_web_client .o_data_row.o_selected_row,
+body .o_web_client .o_data_row.o_selected_row > .o_data_cell {
+    background: var(--by-admin-surface-soft) !important;
+    color: var(--by-admin-text) !important;
+}
+
+body .o_web_client input,
+body .o_web_client textarea,
+body .o_web_client select,
+body .o_web_client .form-control,
+body .o_web_client .form-select,
+body .o_web_client .o_input,
+body .o_web_client .o_searchview,
+body .o_web_client .o_searchview_input,
+body .o_web_client .o_searchview_facet,
+body .o_web_client .o-autocomplete--input {
+    background: var(--by-admin-bg-deep) !important;
+    border-color: var(--by-admin-border-strong) !important;
+    color: var(--by-admin-text) !important;
+}
+
+body .o_web_client input::placeholder,
+body .o_web_client textarea::placeholder,
+body .o_web_client .form-control::placeholder,
+body .o_web_client .o_searchview_input::placeholder {
+    color: var(--by-admin-faint) !important;
+}
+
+body .o_web_client input:focus,
+body .o_web_client textarea:focus,
+body .o_web_client select:focus,
+body .o_web_client .form-control:focus,
+body .o_web_client .form-select:focus,
+body .o_web_client .o_input:focus,
+body .o_web_client .o_searchview:focus-within {
+    border-color: var(--by-admin-blue) !important;
+    box-shadow: 0 0 0 0.18rem rgba(47, 128, 237, 0.16) !important;
+}
+
+body .o_web_client .btn-primary,
+body .o_web_client .btn-fill-primary,
+body .o_web_client .o_list_button_add,
+body .o_web_client .o_form_button_save,
+body .o_web_client .o-kanban-button-new {
+    background: var(--by-admin-text) !important;
+    border-color: var(--by-admin-yellow) !important;
+    color: var(--by-admin-bg-deep) !important;
+}
+
+body .o_web_client .btn-primary:hover,
+body .o_web_client .btn-primary:focus,
+body .o_web_client .btn-fill-primary:hover,
+body .o_web_client .btn-fill-primary:focus,
+body .o_web_client .o_list_button_add:hover,
+body .o_web_client .o_list_button_add:focus,
+body .o_web_client .o_form_button_save:hover,
+body .o_web_client .o_form_button_save:focus,
+body .o_web_client .o-kanban-button-new:hover,
+body .o_web_client .o-kanban-button-new:focus {
+    background: var(--by-admin-yellow-soft) !important;
+    border-color: var(--by-admin-yellow) !important;
+    color: var(--by-admin-bg-deep) !important;
+}
+
+body .o_web_client .btn-secondary,
+body .o_web_client .btn-outline-secondary,
+body .o_web_client .btn-light,
+body .o_web_client .btn-link {
+    background: transparent !important;
+    border-color: var(--by-admin-border-strong) !important;
+    color: var(--by-admin-body) !important;
+}
+
+body .o_web_client .btn-secondary:hover,
+body .o_web_client .btn-outline-secondary:hover,
+body .o_web_client .btn-light:hover,
+body .o_web_client .btn-link:hover,
+body .o_web_client .btn-secondary:focus,
+body .o_web_client .btn-outline-secondary:focus,
+body .o_web_client .btn-light:focus,
+body .o_web_client .btn-link:focus {
+    background: var(--by-admin-surface-raised) !important;
+    border-color: var(--by-admin-blue) !important;
+    color: var(--by-admin-text) !important;
+}
+
+body .o_web_client .dropdown-menu,
+body .o_web_client .o-dropdown--menu,
+body .o_web_client .o_popover,
+body .o_web_client .popover,
+body .o_web_client .modal-content {
+    background: var(--by-admin-surface) !important;
+    border-color: var(--by-admin-border) !important;
+    color: var(--by-admin-body) !important;
+}
+
+body .o_web_client .dropdown-item,
+body .o_web_client .o-dropdown--menu .dropdown-item,
+body .o_web_client .modal-title,
+body .o_web_client .modal-body,
+body .o_web_client .modal-footer {
+    color: var(--by-admin-body) !important;
+}
+
+body .o_web_client .dropdown-item:hover,
+body .o_web_client .dropdown-item:focus,
+body .o_web_client .o-dropdown--menu .dropdown-item:hover,
+body .o_web_client .o-dropdown--menu .dropdown-item:focus {
+    background: var(--by-admin-surface-raised) !important;
+    color: var(--by-admin-text) !important;
+}
+
+body .o_web_client .list-group-item,
+body .o_web_client .o_menu_item,
+body .o_web_client .o_app,
+body .o_web_client .o_app_name,
+body .o_web_client .o_search_panel,
+body .o_web_client .o_search_panel_section {
+    background: transparent !important;
+    border-color: var(--by-admin-border) !important;
+    color: var(--by-admin-body) !important;
+}
+
+body .o_web_client .list-group-item.active,
+body .o_web_client .list-group-item:hover,
+body .o_web_client .o_search_panel_label:hover,
+body .o_web_client .o_search_panel_label.active {
+    background: var(--by-admin-surface-raised) !important;
+    color: var(--by-admin-text) !important;
+}
+
+body .o_web_client .badge,
+body .o_web_client .o_tag,
+body .o_web_client .badge.rounded-pill {
+    background: rgba(0, 87, 183, 0.14) !important;
+    border: 1px solid rgba(0, 87, 183, 0.32) !important;
+    color: var(--by-admin-body) !important;
+}
+
+body .o_web_client hr,
+body .o_web_client .dropdown-divider,
+body .o_web_client .modal-header,
+body .o_web_client .modal-footer {
+    border-color: var(--by-admin-border) !important;
+}

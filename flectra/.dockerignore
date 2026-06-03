@@ -1,0 +1,5 @@
+.git/
+postgres_data/
+var/lib/flectra/
+__pycache__/
+*.py[cod]

@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   postgres:
     image: postgres:14
@@ -13,18 +11,31 @@ services:
       - ./postgres/init:/docker-entrypoint-initdb.d:ro
 
   flectra:
-    image: flectrahq/flectra
+    build:
+      context: .
+      dockerfile: Dockerfile.flectra
+      args:
+        HOST_UID: "${HOST_UID}"
+        HOST_GID: "${HOST_GID}"
+    image: blueyellow-flectra
+    group_add:
+      - "1000"
     env_file: .env
     container_name: flectra
     restart: unless-stopped
+    environment:
+      HOST_UID: "${HOST_UID}"
+      HOST_GID: "${HOST_GID}"
+      FLECTRA_AUTO_INIT: "1"
+      FLECTRA_DB: "${FLECTRA_DB:-flectra}"
+      FLECTRA_INIT_MODULES: "${FLECTRA_INIT_MODULES:-crm,sale_management,account_accountant,project,project_todo,calendar,contacts,hr,hr_attendance,hr_contract,hr_expense,hr_recruitment,hr_skills,mass_mailing,survey,website_event,website_hr_recruitment,website_slides,website_sale,website,theme_blueyellow}"
+      FLECTRA_DEFAULT_THEME: "${FLECTRA_DEFAULT_THEME:-theme_blueyellow}"
     ports:
       - "7073:7073"
     volumes:
-      - flectra.conf:/etc/flectra.conf
-volumes:
-  postgres_data:
-  db_init.sql:
-  flectra.conf:  
+      - ./flectra.conf:/etc/flectra/flectra.conf:ro
+      - ./addons:/mnt/extra-addons
+      - ./var/lib/flectra:/var/lib/flectra  
 networks:
   default:
     name: docker_default

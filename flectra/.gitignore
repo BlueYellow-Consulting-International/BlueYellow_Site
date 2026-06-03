@@ -1,0 +1,11 @@
+# Runtime database and Flectra state
+/postgres_data/
+/var/lib/flectra/
+
+# Local environment overrides
+.env.local
+
+# Python/editor noise
+__pycache__/
+*.py[cod]
+.DS_Store
