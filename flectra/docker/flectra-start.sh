@@ -7,7 +7,7 @@ DB_USER="${POSTGRES_USER:-db}"
 DB_PASSWORD="${POSTGRES_PASSWORD:-flectra}"
 DB_NAME="${FLECTRA_DB:-flectra}"
 DEFAULT_THEME="${FLECTRA_DEFAULT_THEME:-theme_blueyellow}"
-INIT_MODULES="${FLECTRA_INIT_MODULES:-crm,sale_management,account_accountant,project,project_todo,calendar,contacts,hr,hr_attendance,hr_contract,hr_expense,hr_recruitment,hr_skills,mass_mailing,survey,website_event,website_hr_recruitment,website_slides,website_sale,website,theme_blueyellow}"
+INIT_MODULES="${FLECTRA_INIT_MODULES:-crm,sale_management,account_accountant,project,project_todo,calendar,contacts,hr,hr_attendance,hr_contract,hr_expense,hr_recruitment,hr_skills,hr_timesheet,sale_project,sale_timesheet,mass_mailing,survey,website_event,website_hr_recruitment,website_slides,website_sale,website_partner,website_crm_partner_assign,account_payment,payment,website,theme_blueyellow}"
 CONFIG_FILE="${FLECTRA_CONFIG:-/etc/flectra/flectra.conf}"
 FLECTRA_PROXY_MODE="${FLECTRA_PROXY_MODE:-0}"
 

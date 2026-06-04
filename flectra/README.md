@@ -133,7 +133,7 @@ The default values are documented in `.env.example`:
 ```text
 FLECTRA_DB=flectra
 FLECTRA_AUTO_INIT=1
-FLECTRA_INIT_MODULES=crm,sale_management,account_accountant,project,project_todo,calendar,contacts,hr,hr_attendance,hr_contract,hr_expense,hr_recruitment,hr_skills,mass_mailing,survey,website_event,website_hr_recruitment,website_slides,website_sale,website,theme_blueyellow
+FLECTRA_INIT_MODULES=crm,sale_management,account_accountant,project,project_todo,calendar,contacts,hr,hr_attendance,hr_contract,hr_expense,hr_recruitment,hr_skills,hr_timesheet,sale_project,sale_timesheet,mass_mailing,survey,website_event,website_hr_recruitment,website_slides,website_sale,website_partner,website_crm_partner_assign,account_payment,payment,website,theme_blueyellow
 FLECTRA_DEFAULT_THEME=theme_blueyellow
 ```
 
@@ -154,16 +154,27 @@ On a fresh database, that installs these apps by default:
 | `hr_expense` | Expenses |
 | `hr_recruitment` | Recruitment |
 | `hr_skills` | Skills Management |
+| `hr_timesheet` | Timesheets |
+| `sale_project` | Sales ↔ Project link |
+| `sale_timesheet` | Bill from timesheets |
 | `mass_mailing` | Email Marketing |
 | `survey` | Surveys |
 | `website_event` | Events |
 | `website_hr_recruitment` | Online Jobs |
 | `website_slides` | eLearning |
 | `website_sale` | eCommerce |
+| `website_partner` | Public partner pages |
+| `website_crm_partner_assign` | Partner directory (consultants) |
+| `account_payment` | Invoice payment registration |
+| `payment` | Payment providers |
 | `website` | Website |
 | `theme_blueyellow` | BlueYellow theme |
 
 Flectra installs each module's dependencies automatically. Keep `website` and `theme_blueyellow` at the end of the list.
+
+### Marketplace workflow (hire → pay)
+
+See [docs/workflows/golden-path-hire-to-pay.md](docs/workflows/golden-path-hire-to-pay.md) for the end-to-end click path: job posting, application, shared project, timesheets, client invoice, and consultant payout.
 
 ## Running On Another Server
 

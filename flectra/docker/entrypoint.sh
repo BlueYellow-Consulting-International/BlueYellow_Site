@@ -3,6 +3,8 @@ set -euo pipefail
 
 HOST_UID="${HOST_UID:-1030}"
 HOST_GID="${HOST_GID:-100}"
+[ -n "${HOST_UID}" ] || HOST_UID=1030
+[ -n "${HOST_GID}" ] || HOST_GID=100
 
 ensure_host_user() {
     local run_user="hostuser"
