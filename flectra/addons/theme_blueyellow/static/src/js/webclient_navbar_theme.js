@@ -218,6 +218,54 @@
         });
     }
 
+    function maintainNavbarLabels() {
+        renameAppsMenuLabel();
+        dedupeNavbarBrandSections();
+    }
+
+    function dedupeNavbarBrandSections() {
+        document.querySelectorAll("nav.o_main_navbar").forEach((navbar) => {
+            const brand = navbar.querySelector(":scope > .o_menu_brand");
+            if (!brand) {
+                return;
+            }
+
+            const brandName = brand.textContent.trim();
+            if (!brandName) {
+                return;
+            }
+
+            const sections = navbar.querySelector(
+                ".o_menu_sections:not(.by_home_dashboard_sections)"
+            );
+            if (!sections) {
+                return;
+            }
+
+            for (const entry of sections.children) {
+                if (
+                    !entry.matches(
+                        ".o_nav_entry, .dropdown, .o-dropdown, .o_menu_sections_more"
+                    )
+                ) {
+                    continue;
+                }
+
+                let label = "";
+                if (entry.classList.contains("o_nav_entry")) {
+                    label = entry.textContent.trim();
+                } else {
+                    const toggle =
+                        entry.querySelector(".dropdown-toggle") ||
+                        entry.querySelector("[data-section]");
+                    label = toggle ? toggle.textContent.trim() : entry.textContent.trim();
+                }
+
+                entry.hidden = label === brandName;
+            }
+        });
+    }
+
     function queueRenameAppsMenuLabel() {
         if (renameQueued) {
             return;
@@ -226,7 +274,7 @@
         renameQueued = true;
         window.requestAnimationFrame(() => {
             renameQueued = false;
-            renameAppsMenuLabel();
+            maintainNavbarLabels();
         });
     }
 

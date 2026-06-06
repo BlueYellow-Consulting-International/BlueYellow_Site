@@ -1,0 +1,19 @@
+body.home_menu_page .o_apps_container .o_app.o_app--reorderable {
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+}
+
+body.home_menu_page .o_apps_container .o_app.o_app--reorderable:active {
+    cursor: grabbing;
+}
+
+body.home_menu_page .o_apps_container .o_app.o_app--dragging {
+    opacity: 0.45;
+}
+
+body.home_menu_page .o_apps_container .o_app.o_app--drag-over {
+    outline: 2px dashed var(--by-admin-blue, #2f80ed);
+    outline-offset: 4px;
+    border-radius: 8px;
+}
