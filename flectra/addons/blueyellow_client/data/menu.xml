@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <menuitem id="menu_blueyellow_my_organization"
+              name="My Organization"
+              parent="project.menu_main_pm"
+              groups="blueyellow_client.group_client"
+              sequence="45"/>
+
+    <menuitem id="menu_blueyellow_new_organization"
+              name="New Organization"
+              parent="menu_blueyellow_my_organization"
+              action="client_organization_wizard_action"
+              groups="blueyellow_client.group_client"
+              sequence="10"/>
+</flectra>

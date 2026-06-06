@@ -133,7 +133,7 @@ The default values are documented in `.env.example`:
 ```text
 FLECTRA_DB=flectra
 FLECTRA_AUTO_INIT=1
-FLECTRA_INIT_MODULES=crm,sale_management,account_accountant,project,project_todo,calendar,contacts,hr,hr_attendance,hr_contract,hr_expense,hr_recruitment,hr_skills,hr_timesheet,sale_project,sale_timesheet,mass_mailing,survey,website_event,website_hr_recruitment,website_slides,website_sale,website_partner,website_crm_partner_assign,account_payment,payment,website,theme_blueyellow
+FLECTRA_INIT_MODULES=crm,sale_management,account_accountant,project,project_todo,calendar,contacts,hr,hr_attendance,hr_contract,hr_expense,hr_recruitment,hr_skills,hr_timesheet,sale_project,sale_timesheet,mass_mailing,survey,website_event,website_hr_recruitment,website_slides,website_sale,website_partner,website_crm_partner_assign,account_payment,payment,blueyellow_client,blueyellow_consultant,blueyellow_recruitment_project,website,theme_blueyellow
 FLECTRA_DEFAULT_THEME=theme_blueyellow
 ```
 
@@ -167,6 +167,9 @@ On a fresh database, that installs these apps by default:
 | `website_crm_partner_assign` | Partner directory (consultants) |
 | `account_payment` | Invoice payment registration |
 | `payment` | Payment providers |
+| `blueyellow_client` | Client role, organization wizard, company-scoped projects, home menu filtering |
+| `blueyellow_consultant` | Consultant role and home menu filtering |
+| `blueyellow_recruitment_project` | Job ↔ project link and hire → project automation |
 | `website` | Website |
 | `theme_blueyellow` | BlueYellow theme |
 
@@ -175,6 +178,18 @@ Flectra installs each module's dependencies automatically. Keep `website` and `t
 ### Marketplace workflow (hire → pay)
 
 See [docs/workflows/golden-path-hire-to-pay.md](docs/workflows/golden-path-hire-to-pay.md) for the end-to-end click path: job posting, application, shared project, timesheets, client invoice, and consultant payout.
+
+Platform addon design and security notes: [docs/specs/blueyellow-platform-modules.md](docs/specs/blueyellow-platform-modules.md).
+
+**Client users:** assign the **Client** group (`blueyellow_client`) only — not standard **Project Administrator**. Clients see projects for their organization only; new projects inherit the active company. Upgrade an existing database with:
+
+```bash
+docker compose exec flectra flectra-bin \
+  --config=/etc/flectra/flectra.conf \
+  --db_host=db --db_user=db --db_password=flectra \
+  -d flectra -u blueyellow_client,blueyellow_consultant,blueyellow_recruitment_project --stop-after-init
+docker compose restart flectra
+```
 
 ## Running On Another Server
 

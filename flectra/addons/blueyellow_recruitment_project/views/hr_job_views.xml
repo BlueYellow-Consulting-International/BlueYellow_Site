@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <record id="hr_job_view_form_recruitment_project" model="ir.ui.view">
+        <field name="name">hr.job.form.recruitment.project</field>
+        <field name="model">hr.job</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_job_survey"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id'][@groups='base.group_multi_company']" position="after">
+                <field name="project_id" groups="blueyellow_client.group_client_project"/>
+            </xpath>
+            <div name="button_box" position="inside">
+                <button name="action_create_project"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-tasks"
+                        groups="blueyellow_client.group_client_project"
+                        invisible="project_id">
+                    <div class="o_stat_info">
+                        <span class="o_stat_text">Create Project</span>
+                    </div>
+                </button>
+                <button name="action_create_project"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-tasks"
+                        groups="blueyellow_client.group_client_project"
+                        invisible="not project_id">
+                    <div class="o_stat_info">
+                        <span class="o_stat_text">Open Project</span>
+                    </div>
+                </button>
+            </div>
+        </field>
+    </record>
+</flectra>
