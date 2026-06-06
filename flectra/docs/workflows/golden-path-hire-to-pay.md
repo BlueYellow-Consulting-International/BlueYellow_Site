@@ -15,7 +15,7 @@ This playbook uses **native Flectra apps and roles** only. BlueYellow acts as th
 | Company | Role |
 |---------|------|
 | **BlueYellow** | Platform / broker (default company) |
-| **Client Co.** | Hiring client (`Settings → Companies → Create`) |
+| **Client Co.** | Hiring client (**Project → My Organization → New Organization**, or admin-created) |
 
 Enable **Multi-Companies** for platform admins (`Settings → Users → [Admin] → Other → Multi Companies`).
 
@@ -24,8 +24,8 @@ Enable **Multi-Companies** for platform admins (`Settings → Users → [Admin] 
 | User | Type | Native access |
 |------|------|---------------|
 | **Platform Admin** | Internal | Administrator + Billing Administrator + Recruitment Administrator + Timesheet Manager + Project Administrator |
-| **Client Manager** | Internal | Internal User, Multi-Company, Recruitment Officer, Project User, Billing, Timesheet Approver — **default company: Client Co.** |
-| **Consultant** | Internal + Portal | Internal User, Employee (linked), Billing, Timesheet User, Project User — **partner published** for public profile |
+| **Client Manager** | Internal | **Client** group only (`blueyellow_client.group_client`) — implies Recruitment Officer, **Client Project Manager**, Billing, Timesheet Approver, Multi-Company. Do **not** also assign Administrator or standard Project Administrator. Home menu hides **Website**, **Employees**, **Expenses**, and **Apps**. |
+| **Consultant** | Internal + Portal | **Consultant** group only (`blueyellow_consultant.group_consultant`) — implies Employee, Project User, Timesheet User, Billing. Link user to **Employee** + **Contact**; publish partner for public profile. Same home menu hides as Client. |
 
 Link the consultant user to an **Employee** record and a **Contact** (`res.partner`). Publish the partner for the public profile (`Website tab → Publish`).
 
@@ -38,8 +38,19 @@ These modules are included in the default bootstrap (`FLECTRA_INIT_MODULES`):
 - Sales + Accounting (`sale_management`, `account_accountant`, `account_payment`, `payment`)
 - Partner directory (`website_partner`, `website_crm_partner_assign`)
 - Skills (`hr_skills`)
+- BlueYellow platform (`blueyellow_client`, `blueyellow_recruitment_project`)
 
-On an **existing** database, install missing apps from **Apps** before running through this path.
+On an **existing** database, install or upgrade platform modules:
+
+```bash
+docker compose exec flectra flectra-bin \
+  --config=/etc/flectra/flectra.conf \
+  --db_host=db --db_user=db --db_password=flectra \
+  -d flectra -u blueyellow_client,blueyellow_consultant,blueyellow_recruitment_project --stop-after-init
+docker compose restart flectra
+```
+
+Then log client users out and back in.
 
 ---
 
@@ -47,14 +58,18 @@ On an **existing** database, install missing apps from **Apps** before running t
 
 **Actor:** Client Manager (company: Client Co.)
 
-1. Switch company to **Client Co.** (company switcher, top bar).
-2. Open **Recruitment → Jobs → New**.
-3. Fill in:
+1. If needed: **Project → My Organization → New Organization** — create **Client Co.** (sets default company; removes platform from allowed companies).
+2. Confirm the company switcher shows **Client Co.** (switcher needs 2+ allowed companies to be useful — fine with one org for v1).
+3. Open **Recruitment → Jobs → New**.
+4. Fill in:
    - **Job Position** — e.g. *Senior Python Consultant*
    - **Company** — Client Co.
    - **Recruitment team** — default or client team
-4. Open the **Recruitment** tab → set **Website** → **Published** (visible on `/jobs`).
-5. Save.
+5. Click **Create Project** on the job form (or select an existing **Engagement Project** for Client Co.).
+6. Open the **Recruitment** tab → set **Website** → **Published** (visible on `/jobs`).
+7. Save.
+
+**Note:** The **Engagement Project** dropdown lists only projects belonging to the job's company. Projects created under **Project → New** are automatically assigned to the active company when logged in as a Client user.
 
 **Verify:** Visit `https://your-domain/jobs` — the position appears.
 
@@ -82,25 +97,26 @@ On an **existing** database, install missing apps from **Apps** before running t
 2. Review CV / skills (optional: compare with **Employees → [Consultant]** skills if already on platform).
 3. Move stage → **Initial Qualification** → **First Interview** → **Contract Proposal** → **Contract Signed** (or use your simplified pipeline).
 4. Click **Create Employee** if the consultant is not yet an employee on the platform — otherwise link to existing contact/employee.
-5. Mark applicant as **Hired**.
+5. Move to the **Hired** stage.
+
+**Automatic (blueyellow_recruitment_project):** When the applicant reaches a hired stage and the job has an **Engagement Project**, the consultant is added to that project (follower or portal collaborator) and an **Onboarding** task is created.
 
 **Optional — direct match (skip public board):** Create applicant manually from the consultant's contact instead of waiting for a website application.
 
 ---
 
-## Act 4 — Create the shared project
+## Act 4 — Shared project (usually done in Act 1)
+
+If you used **Create Project** on the job in Act 1, skip manual project setup. Otherwise:
 
 **Actor:** Client Manager (or Platform Admin)
 
 1. **Project → New**.
-2. Fill in:
-   - **Name** — e.g. *Client Co. — Python engagement*
-   - **Customer** — Client Co. (as client partner) or the client's contact
-   - **Company** — Client Co.
-   - **Privacy** — **Invited portal users and all internal users (portal)** ← enables collaboration
-3. Save.
-4. Open **Settings** (gear on project) → **Collaborators** → **Add** the consultant's portal user.
-5. Create tasks — e.g. *Sprint 1 — API integration*.
+2. Fill in name and tasks — **Company** and **Customer** default to the active organization for Client users.
+3. Set **Privacy** — **Invited portal users and all internal users (portal)** if not already set by **Create Project** on the job.
+4. Save.
+5. Link the project on the job (**Engagement Project** field) if not already linked.
+6. Add **Collaborators** manually only if hire automation did not run yet.
 
 **Verify (Consultant):** Log in → **My Account** (`/my`) or backend → project appears with shared access.
 
@@ -231,7 +247,10 @@ The consultant is a **vendor** on BlueYellow.
 
 Use this when validating a fresh install:
 
+- [ ] Client user has **Client** group only (not Administrator / not standard Project Administrator)
+- [ ] Organization wizard sets default company; projects scoped to that company
 - [ ] Client Co. company exists; Client Manager defaults to it
+- [ ] Job **Engagement Project** lists only Client Co. projects
 - [ ] Job visible on `/jobs`
 - [ ] Website application creates applicant under Client Co.
 - [ ] Project sharing: consultant sees project in portal or backend
@@ -240,6 +259,18 @@ Use this when validating a fresh install:
 - [ ] Invoice wizard produces correct amount (10 × rate)
 - [ ] Vendor bill created for consultant payout
 - [ ] (Optional) Payment provider registers client payment
+
+---
+
+## Troubleshooting
+
+| Symptom | Likely cause | Fix |
+|---------|--------------|-----|
+| Client sees all platform/demo projects | User has **Administrator** or **Project Administrator** | Assign **Client** group only; run module upgrade; log out/in |
+| Job project dropdown shows wrong projects | Active company mismatch or stale session | Switch to client company; log out/in after upgrade |
+| Project created without company | Pre-fix data or non-Client user | Upgrade `blueyellow_client`; recreate project as Client user |
+| Company switcher missing | User has only one allowed company | Expected for v1; create second org via wizard to enable switcher |
+| **Create Project** on job missing | User lacks **Client Project Manager** | Ensure **Client** group is assigned |
 
 ---
 
