@@ -68,8 +68,9 @@ class ClientOrganizationWizard(models.TransientModel):
         owned_companies = self.env["res.company"].sudo().search([
             ("blueyellow_owner_id", "=", self.env.user.id),
         ])
+        allowed_companies = self.env.user.company_ids | owned_companies
         self.env.user.sudo().write({
-            "company_ids": [(6, 0, owned_companies.ids)],
+            "company_ids": [(6, 0, allowed_companies.ids)],
             "company_id": company.id,
         })
 

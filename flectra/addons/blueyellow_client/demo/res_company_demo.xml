@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <data noupdate="1">
+        <record id="partner_client_co" model="res.partner">
+            <field name="name">Client Co.</field>
+            <field name="email">contact@clientco.example.com</field>
+            <field name="phone">+1 555-010-2000</field>
+        </record>
+
+        <record id="company_client_co" model="res.company">
+            <field name="name">Client Co.</field>
+            <field name="partner_id" ref="partner_client_co"/>
+            <field name="parent_id" ref="base.main_company"/>
+        </record>
+    </data>
+</flectra>

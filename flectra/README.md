@@ -106,12 +106,18 @@ docker compose up --build
 
 Always remove **both** `postgres_data` and `var` together. Deleting only `var` leaves attachment metadata in PostgreSQL pointing at files that no longer exist, which causes 500 errors on logos, favicons, and other uploads.
 
-The startup helper detects this mismatch on boot and drops the database automatically so the next launch can reinitialize cleanly.
+The startup helper no longer drops a mismatched database during normal boot. If you are working in a disposable local environment and intentionally want that old recovery behavior, set:
 
-On every boot, the startup helper also:
+```text
+FLECTRA_ALLOW_AUTO_DB_RESET=1
+```
 
+On normal boots, the startup helper avoids repeated database mutations. It only:
+
+- Installs `FLECTRA_INIT_MODULES` on a fresh/uninitialized database.
 - Upgrades `theme_blueyellow` when global webclient assets are missing from an older install.
-- Clears generated asset bundles so CSS/JS changes apply immediately after bootstrap.
+- Installs/upgrades `FLECTRA_UPGRADE_MODULES` when that variable is explicitly set.
+- Clears generated asset bundles after a fresh bootstrap, theme upgrade, or explicit module sync.
 
 ## Fresh Database Bootstrap
 
@@ -121,12 +127,14 @@ The Flectra service runs:
 /usr/local/bin/blueyellow-flectra-start
 ```
 
-That helper does three things when `FLECTRA_AUTO_INIT=1`:
+When `FLECTRA_AUTO_INIT=1`, the helper:
 
-- Waits for PostgreSQL to accept connections.
+- Waits for PostgreSQL to accept authenticated SQL connections.
 - Installs `FLECTRA_INIT_MODULES` when the target database/theme is not initialized.
-- Sets every website record to `FLECTRA_DEFAULT_THEME`.
-- Applies the BlueYellow homepage landing content when the homepage is still empty.
+- Sets every website record to `FLECTRA_DEFAULT_THEME` only after a fresh bootstrap, or when `FLECTRA_FORCE_DEFAULT_THEME=1`.
+- Applies the BlueYellow homepage landing content after a fresh bootstrap, or when `FLECTRA_ENSURE_HOMEPAGE=1`.
+- Installs/upgrades `FLECTRA_UPGRADE_MODULES` when that variable is explicitly set.
+- Clears generated asset bundles only after bootstrap/theme/module changes, or when `FLECTRA_CLEAR_ASSETS_ON_BOOT=1`.
 
 The default values are documented in `.env.example`:
 
@@ -134,7 +142,12 @@ The default values are documented in `.env.example`:
 FLECTRA_DB=flectra
 FLECTRA_AUTO_INIT=1
 FLECTRA_INIT_MODULES=crm,sale_management,account_accountant,project,project_todo,calendar,contacts,hr,hr_attendance,hr_contract,hr_expense,hr_recruitment,hr_skills,hr_timesheet,sale_project,sale_timesheet,mass_mailing,survey,website_event,website_hr_recruitment,website_slides,website_sale,website_partner,website_crm_partner_assign,account_payment,payment,blueyellow_client,blueyellow_consultant,blueyellow_recruitment_project,website,theme_blueyellow
+FLECTRA_UPGRADE_MODULES=
 FLECTRA_DEFAULT_THEME=theme_blueyellow
+FLECTRA_ALLOW_AUTO_DB_RESET=0
+FLECTRA_FORCE_DEFAULT_THEME=0
+FLECTRA_ENSURE_HOMEPAGE=0
+FLECTRA_CLEAR_ASSETS_ON_BOOT=0
 ```
 
 On a fresh database, that installs these apps by default:
@@ -181,15 +194,44 @@ See [docs/workflows/golden-path-hire-to-pay.md](docs/workflows/golden-path-hire-
 
 Platform addon design and security notes: [docs/specs/blueyellow-platform-modules.md](docs/specs/blueyellow-platform-modules.md).
 
-**Client users:** assign the **Client** group (`blueyellow_client`) only — not standard **Project Administrator**. Clients see projects for their organization only; new projects inherit the active company. Upgrade an existing database with:
+### Demo logins (fresh database only)
+
+On a **fresh** bootstrap, Flectra loads demo data (including BlueYellow marketplace users). Demo XML does **not** load on normal `-u` upgrades of an existing database.
+
+| Login | Password | Role | Company |
+|-------|----------|------|---------|
+| `client.manager@clientco.example.com` | `demo` | Client | Client Co. |
+| `consultant@blueyellow.example.com` | `demo` | Consultant | BlueYellow (platform) |
+
+Also seeded on fresh install:
+
+- **Client Co.** — child company owned by the Client Manager (`blueyellow_owner_id` set).
+- **Senior Python Consultant** job on Client Co., linked to an engagement project and published for `/jobs`.
+
+To test demo data locally, reset runtime state and bootstrap again:
+
+```bash
+docker compose down
+sudo rm -rf postgres_data var
+docker compose up --build
+```
+
+**Client users:** assign the **Client** group (`blueyellow_client`) only — not standard **Project Administrator**. The module now removes Project Administrator automatically if it is assigned together with Client, but avoiding the overlap keeps access reviews clear. Clients see projects for their organization only; new projects inherit the active company.
+
+Upgrade an existing database with:
 
 ```bash
 docker compose exec flectra flectra-bin \
   --config=/etc/flectra/flectra.conf \
   --db_host=db --db_user=db --db_password=flectra \
-  -d flectra -u blueyellow_client,blueyellow_consultant,blueyellow_recruitment_project --stop-after-init
+  -d flectra \
+  -i blueyellow_client,blueyellow_consultant,blueyellow_recruitment_project \
+  -u blueyellow_client,blueyellow_consultant,blueyellow_recruitment_project,theme_blueyellow \
+  --stop-after-init
 docker compose restart flectra
 ```
+
+For deployment automation, set `FLECTRA_UPGRADE_MODULES=blueyellow_client,blueyellow_consultant,blueyellow_recruitment_project,theme_blueyellow` for one boot, then clear it after the upgrade succeeds.
 
 ## Running On Another Server
 
@@ -221,6 +263,8 @@ The primary theme. It covers:
 - Backend/webclient management pages through late `web.assets_web` assets.
 - Logged-in webclient navbar cleanup and label tweaks.
 - Fresh database default theme behavior.
+
+It depends on `web_flectra` because the apps-dashboard navbar and reorder behavior patch `web_flectra` home-menu components.
 
 Important files:
 

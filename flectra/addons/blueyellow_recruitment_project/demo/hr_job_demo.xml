@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <data noupdate="1">
+        <record id="project_client_co_engagement" model="project.project">
+            <field name="name">Senior Python Consultant Engagement</field>
+            <field name="company_id" ref="blueyellow_client.company_client_co"/>
+            <field name="partner_id" ref="blueyellow_client.partner_client_co"/>
+            <field name="privacy_visibility">portal</field>
+        </record>
+
+        <record id="job_senior_python_consultant" model="hr.job">
+            <field name="name">Senior Python Consultant</field>
+            <field name="company_id" ref="blueyellow_client.company_client_co"/>
+            <field name="project_id" ref="project_client_co_engagement"/>
+            <field name="user_id" ref="blueyellow_client.user_client_manager"/>
+            <field name="is_published">True</field>
+            <field name="website_description" type="html">
+                <p>
+                    Client Co. is hiring a senior Python consultant through BlueYellow.
+                    Apply via the public jobs page to start the golden-path hire-to-pay workflow.
+                </p>
+            </field>
+        </record>
+    </data>
+</flectra>

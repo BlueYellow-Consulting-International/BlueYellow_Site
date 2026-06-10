@@ -8,8 +8,13 @@ DB_PASSWORD="${POSTGRES_PASSWORD:-flectra}"
 DB_NAME="${FLECTRA_DB:-flectra}"
 DEFAULT_THEME="${FLECTRA_DEFAULT_THEME:-theme_blueyellow}"
 INIT_MODULES="${FLECTRA_INIT_MODULES:-crm,sale_management,account_accountant,project,project_todo,calendar,contacts,hr,hr_attendance,hr_contract,hr_expense,hr_recruitment,hr_skills,hr_timesheet,sale_project,sale_timesheet,mass_mailing,survey,website_event,website_hr_recruitment,website_slides,website_sale,website_partner,website_crm_partner_assign,account_payment,payment,blueyellow_client,blueyellow_consultant,blueyellow_recruitment_project,website,theme_blueyellow}"
+UPGRADE_MODULES="${FLECTRA_UPGRADE_MODULES:-}"
 CONFIG_FILE="${FLECTRA_CONFIG:-/etc/flectra/flectra.conf}"
 FLECTRA_PROXY_MODE="${FLECTRA_PROXY_MODE:-0}"
+FLECTRA_ALLOW_AUTO_DB_RESET="${FLECTRA_ALLOW_AUTO_DB_RESET:-0}"
+FLECTRA_FORCE_DEFAULT_THEME="${FLECTRA_FORCE_DEFAULT_THEME:-0}"
+FLECTRA_ENSURE_HOMEPAGE="${FLECTRA_ENSURE_HOMEPAGE:-0}"
+FLECTRA_CLEAR_ASSETS_ON_BOOT="${FLECTRA_CLEAR_ASSETS_ON_BOOT:-0}"
 
 PROXY_ARGS=()
 case "${FLECTRA_PROXY_MODE}" in
@@ -17,6 +22,15 @@ case "${FLECTRA_PROXY_MODE}" in
         PROXY_ARGS=(--proxy-mode)
         ;;
 esac
+
+is_truthy() {
+    case "${1:-}" in
+        1|true|True|TRUE|yes|Yes|YES|on|On|ON)
+            return 0
+            ;;
+    esac
+    return 1
+}
 
 prepare_runtime_config() {
     if [ "${#PROXY_ARGS[@]}" -eq 0 ]; then
@@ -35,19 +49,37 @@ prepare_runtime_config() {
 
 wait_for_database() {
     python3 - <<PY
-import socket
 import sys
 import time
 
+import psycopg2
+
 host = "${DB_HOST}"
 port = int("${DB_PORT}")
-deadline = time.time() + 60
+deadline = time.time() + 120
 
 while time.time() < deadline:
     try:
-        with socket.create_connection((host, port), timeout=2):
+        connection = psycopg2.connect(
+            host=host,
+            port=port,
+            user="${DB_USER}",
+            password="${DB_PASSWORD}",
+            dbname="postgres",
+            connect_timeout=2,
+        )
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute("select 1")
             sys.exit(0)
-    except OSError:
+        finally:
+            connection.close()
+    except psycopg2.OperationalError:
+        time.sleep(1)
+    except Exception as exc:
+        if time.time() >= deadline:
+            print(f"PostgreSQL readiness check failed: {exc}", file=sys.stderr)
+            sys.exit(1)
         time.sleep(1)
 
 print(f"Timed out waiting for PostgreSQL at {host}:{port}", file=sys.stderr)
@@ -76,6 +108,23 @@ upgrade_default_theme() {
         --db_password="${DB_PASSWORD}" \
         -d "${DB_NAME}" \
         -u "${DEFAULT_THEME}" \
+        --stop-after-init
+}
+
+sync_requested_modules() {
+    if [ -z "${UPGRADE_MODULES}" ]; then
+        return 0
+    fi
+
+    flectra-bin \
+        --config="${CONFIG_FILE}" \
+        --db_host="${DB_HOST}" \
+        --db_port="${DB_PORT}" \
+        --db_user="${DB_USER}" \
+        --db_password="${DB_PASSWORD}" \
+        -d "${DB_NAME}" \
+        -i "${UPGRADE_MODULES}" \
+        -u "${UPGRADE_MODULES}" \
         --stop-after-init
 }
 
@@ -406,19 +455,44 @@ with registry.cursor() as cr:
 PY
 }
 
-if [ "${FLECTRA_AUTO_INIT:-1}" = "1" ]; then
+if is_truthy "${FLECTRA_AUTO_INIT:-1}"; then
+    bootstrapped=0
+    theme_upgraded=0
+    modules_synced=0
+
     wait_for_database
-    reset_broken_database
-    reset_mismatched_filestore
+
+    if is_truthy "${FLECTRA_ALLOW_AUTO_DB_RESET}"; then
+        reset_broken_database
+        reset_mismatched_filestore
+    fi
+
     if needs_default_theme_install; then
         install_default_theme
+        bootstrapped=1
     elif needs_default_theme_upgrade; then
         upgrade_default_theme
+        theme_upgraded=1
     fi
-    activate_default_theme
-    ensure_homepage_content
+
+    if [ -n "${UPGRADE_MODULES}" ]; then
+        sync_requested_modules
+        modules_synced=1
+    fi
+
+    if [ "${bootstrapped}" = "1" ] || is_truthy "${FLECTRA_FORCE_DEFAULT_THEME}"; then
+        activate_default_theme
+    fi
+
+    if [ "${bootstrapped}" = "1" ] || is_truthy "${FLECTRA_ENSURE_HOMEPAGE}"; then
+        ensure_homepage_content
+    fi
+
     configure_public_url
-    clear_generated_assets
+
+    if [ "${bootstrapped}" = "1" ] || [ "${theme_upgraded}" = "1" ] || [ "${modules_synced}" = "1" ] || is_truthy "${FLECTRA_CLEAR_ASSETS_ON_BOOT}"; then
+        clear_generated_assets
+    fi
 fi
 
 prepare_runtime_config

@@ -2,9 +2,9 @@
 {
     "name": "BlueYellow Website Theme",
     "summary": "Blue and yellow branding for the website frontend.",
-    "version": "3.0.1.4.8",
+    "version": "3.0.1.4.9",
     "category": "Theme/Website",
-    "depends": ["website"],
+    "depends": ["website", "web_flectra"],
     "post_init_hook": "post_init_hook",
     "assets": {
         "web.assets_backend": [
