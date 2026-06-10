@@ -212,6 +212,10 @@ Clients see only organizations they created (`blueyellow_owner_id`) plus any sti
 | `client.organization.wizard` | `group_client` | 1 | 1 | 1 | 1 |
 | `res.company` | `group_client` | 1 | 0 | 0 | 0 |
 | `project.project` | `group_client_project` | 1 | 1 | 1 | 1 |
+| `project.task` | `group_client_project` | 1 | 1 | 1 | 1 |
+| `project.task.recurrence` | `group_client_project` | 1 | 1 | 1 | 1 |
+| `project.tags` | `group_client_project` | 1 | 1 | 1 | 1 |
+| `project.task.type` | `group_client_project` | 1 | 1 | 1 | 1 |
 | `account.analytic.account` | `group_client_project` | 1 | 1 | 1 | 1 |
 
 The analytic account access mirrors standard **Project Administrator** and is required because **Timesheets** auto-creates an analytic account when a client creates a project. Company scoping still applies via the global analytic multi-company rule.

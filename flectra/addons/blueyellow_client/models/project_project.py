@@ -41,7 +41,12 @@ class ProjectProject(models.Model):
                 vals.setdefault("company_id", company.id)
                 if not vals.get("partner_id"):
                     vals["partner_id"] = company.partner_id.id
-        return super().create(vals_list)
+                vals.setdefault("privacy_visibility", "portal")
+        projects = super().create(vals_list)
+        if self.env.user.has_group("blueyellow_client.group_client"):
+            for project in projects:
+                project.message_subscribe(partner_ids=[self.env.user.partner_id.id])
+        return projects
 
     @api.model
     def default_get(self, fields_list):
