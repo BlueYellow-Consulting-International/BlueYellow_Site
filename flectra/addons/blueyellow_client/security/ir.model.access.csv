@@ -2,3 +2,4 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_client_organization_wizard,client.organization.wizard.client,model_client_organization_wizard,group_client,1,1,1,1
 access_res_company_client_read,res.company.client.read,base.model_res_company,group_client,1,0,0,0
 access_project_project_client,project.project.client,project.model_project_project,group_client_project,1,1,1,1
+access_account_analytic_account_client_project,account.analytic.account.client.project,analytic.model_account_analytic_account,group_client_project,1,1,1,1
