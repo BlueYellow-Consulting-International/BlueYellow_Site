@@ -2,7 +2,7 @@
 {
     "name": "BlueYellow Client",
     "summary": "Client role and self-service organization creation.",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "category": "BlueYellow",
     "depends": [
         "base",
