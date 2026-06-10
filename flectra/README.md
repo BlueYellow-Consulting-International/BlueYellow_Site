@@ -46,6 +46,27 @@ Open Flectra at:
 http://localhost:7073/
 ```
 
+You should land on the **login page** for the configured database (`FLECTRA_DB`, default `flectra`). The public database manager is disabled; database create/backup/restore is not exposed without authentication.
+
+## Database security defaults
+
+The startup script writes a runtime config on every boot with:
+
+| Setting | Value | Effect |
+|---------|-------|--------|
+| `list_db` | `False` | Disables the public `/web/database/*` manager (no unauthenticated create/backup/delete UI) |
+| `dbfilter` | `^<FLECTRA_DB>$` | Locks the web app to the configured database |
+| `-d <FLECTRA_DB>` | from env | Binds the server process to that database |
+| `admin_passwd` | `FLECTRA_ADMIN_PASSWD` | Master password for internal DB RPC only (not normal user login) |
+
+Set a strong master password in `.env` before production:
+
+```text
+FLECTRA_ADMIN_PASSWD=your-long-random-secret
+```
+
+On a **fresh** Postgres volume, `POSTGRES_DB` matches `FLECTRA_DB` so you do not get a stray empty `db` database alongside `flectra`. Existing volumes keep whatever databases were already created.
+
 ## Reverse Proxy / Proxy Mode
 
 When Flectra sits behind a trusted reverse proxy (nginx, Traefik, Caddy, **Nginx Proxy Manager**, etc.), set in `.env`:

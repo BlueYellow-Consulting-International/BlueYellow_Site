@@ -33,17 +33,53 @@ is_truthy() {
 }
 
 prepare_runtime_config() {
-    if [ "${#PROXY_ARGS[@]}" -eq 0 ]; then
-        return 0
+    if ! [[ "${DB_NAME}" =~ ^[a-zA-Z0-9_.-]+$ ]]; then
+        echo "Invalid FLECTRA_DB value: ${DB_NAME}" >&2
+        exit 1
     fi
 
     RUNTIME_CONFIG="/tmp/flectra.runtime.conf"
     cp "${CONFIG_FILE}" "${RUNTIME_CONFIG}"
-    if grep -qE '^[;#[:space:]]*proxy_mode[[:space:]]*=' "${RUNTIME_CONFIG}"; then
-        sed -i -E 's/^[;#[:space:]]*proxy_mode[[:space:]]*=.*/proxy_mode = True/' "${RUNTIME_CONFIG}"
-    else
-        printf '\nproxy_mode = True\n' >> "${RUNTIME_CONFIG}"
+
+    ADMIN_PASSWD="${FLECTRA_ADMIN_PASSWD:-}"
+    if [ -z "${ADMIN_PASSWD}" ]; then
+        ADMIN_PASSWD="$(python3 -c 'import secrets; print(secrets.token_urlsafe(24))')"
+        echo "blueyellow-flectra-start: FLECTRA_ADMIN_PASSWD is unset; using an ephemeral master password (database manager disabled)." >&2
     fi
+
+    export RUNTIME_DB_NAME="${DB_NAME}"
+    export RUNTIME_ADMIN_PASSWD="${ADMIN_PASSWD}"
+    python3 - <<'PY'
+import os
+import re
+from pathlib import Path
+
+config_path = Path("/tmp/flectra.runtime.conf")
+text = config_path.read_text()
+db_name = os.environ["RUNTIME_DB_NAME"]
+replacements = {
+    "dbfilter": rf"^{db_name}$",
+    "list_db": "False",
+    "admin_passwd": os.environ["RUNTIME_ADMIN_PASSWD"],
+}
+for key, value in replacements.items():
+    pattern = re.compile(rf"^[;#\\s]*{re.escape(key)}\\s*=.*$", re.MULTILINE)
+    line = f"{key} = {value}"
+    if pattern.search(text):
+        text = pattern.sub(line, text, count=1)
+    else:
+        text = text.rstrip() + f"\n{line}\n"
+config_path.write_text(text)
+PY
+
+    if [ "${#PROXY_ARGS[@]}" -gt 0 ]; then
+        if grep -qE '^[;#[:space:]]*proxy_mode[[:space:]]*=' "${RUNTIME_CONFIG}"; then
+            sed -i -E 's/^[;#[:space:]]*proxy_mode[[:space:]]*=.*/proxy_mode = True/' "${RUNTIME_CONFIG}"
+        else
+            printf '\nproxy_mode = True\n' >> "${RUNTIME_CONFIG}"
+        fi
+    fi
+
     CONFIG_FILE="${RUNTIME_CONFIG}"
 }
 
@@ -503,5 +539,6 @@ exec flectra-bin \
     --db_port="${DB_PORT}" \
     --db_user="${DB_USER}" \
     --db_password="${DB_PASSWORD}" \
+    -d "${DB_NAME}" \
     "${PROXY_ARGS[@]}" \
     "$@"
