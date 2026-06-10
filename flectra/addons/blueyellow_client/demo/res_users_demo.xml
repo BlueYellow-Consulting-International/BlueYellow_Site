@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <data noupdate="1">
+        <record id="partner_client_manager" model="res.partner">
+            <field name="name">Client Manager</field>
+            <field name="email">client.manager@clientco.example.com</field>
+            <field name="company_id" ref="company_client_co"/>
+        </record>
+
+        <record id="user_client_manager" model="res.users" context="{'no_reset_password': True}">
+            <field name="partner_id" ref="partner_client_manager"/>
+            <field name="login">client.manager@clientco.example.com</field>
+            <field name="password">demo</field>
+            <field name="company_id" ref="company_client_co"/>
+            <field name="company_ids" eval="[(6, 0, [ref('company_client_co')])]"/>
+            <field name="groups_id" eval="[Command.set([ref('blueyellow_client.group_client')])]"/>
+        </record>
+
+        <function model="res.company" name="write">
+            <value eval="[ref('company_client_co')]"/>
+            <value eval="{'blueyellow_owner_id': ref('user_client_manager')}"/>
+        </function>
+    </data>
+</flectra>

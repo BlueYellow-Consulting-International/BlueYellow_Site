@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <data noupdate="1">
+        <record id="employee_consultant" model="hr.employee">
+            <field name="name">Alex Consultant</field>
+            <field name="user_id" ref="user_consultant"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="work_contact_id" ref="partner_consultant"/>
+            <field name="work_email">consultant@blueyellow.example.com</field>
+            <field name="job_title">Senior Python Consultant</field>
+        </record>
+    </data>
+</flectra>

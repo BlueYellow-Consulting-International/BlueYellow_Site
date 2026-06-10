@@ -15,17 +15,19 @@ This playbook uses **native Flectra apps and roles** only. BlueYellow acts as th
 | Company | Role |
 |---------|------|
 | **BlueYellow** | Platform / broker (default company) |
-| **Client Co.** | Hiring client (**Project → My Organization → New Organization**, or admin-created) |
+| **Client Co.** | Hiring client (**Project → My Organization → New Organization**, or admin-created; demo bootstrap seeds **Client Co.** automatically) |
 
 Enable **Multi-Companies** for platform admins (`Settings → Users → [Admin] → Other → Multi Companies`).
 
 ### Users (create once, reuse in tests)
 
+On a **fresh database bootstrap**, demo XML seeds the Client Manager and Consultant users automatically (password `demo`). Use the table below when creating users manually on an existing database.
+
 | User | Type | Native access |
 |------|------|---------------|
 | **Platform Admin** | Internal | Administrator + Billing Administrator + Recruitment Administrator + Timesheet Manager + Project Administrator |
-| **Client Manager** | Internal | **Client** group only (`blueyellow_client.group_client`) — implies Recruitment Officer, **Client Project Manager**, Billing, Timesheet Approver, Multi-Company. Do **not** also assign Administrator or standard Project Administrator. Home menu hides **Website**, **Employees**, **Expenses**, and **Apps**. |
-| **Consultant** | Internal + Portal | **Consultant** group only (`blueyellow_consultant.group_consultant`) — implies Employee, Project User, Timesheet User, Billing. Link user to **Employee** + **Contact**; publish partner for public profile. Same home menu hides as Client. |
+| **Client Manager** | Internal | **Client** group only (`blueyellow_client.group_client`) — implies Recruitment Officer, **Client Project Manager**, Billing, Timesheet Approver, Multi-Company. Do **not** also assign Administrator or standard Project Administrator. Home menu hides **Website**, **Employees**, **Expenses**, and **Apps**. Demo login: `client.manager@clientco.example.com` / `demo`. |
+| **Consultant** | Internal + Portal | **Consultant** group only (`blueyellow_consultant.group_consultant`) — implies Employee, Project User, Timesheet User, Billing. Link user to **Employee** + **Contact**; publish partner for public profile. Same home menu hides as Client. Demo login: `consultant@blueyellow.example.com` / `demo`. |
 
 Link the consultant user to an **Employee** record and a **Contact** (`res.partner`). Publish the partner for the public profile (`Website tab → Publish`).
 
@@ -46,7 +48,10 @@ On an **existing** database, install or upgrade platform modules:
 docker compose exec flectra flectra-bin \
   --config=/etc/flectra/flectra.conf \
   --db_host=db --db_user=db --db_password=flectra \
-  -d flectra -u blueyellow_client,blueyellow_consultant,blueyellow_recruitment_project --stop-after-init
+  -d flectra \
+  -i blueyellow_client,blueyellow_consultant,blueyellow_recruitment_project \
+  -u blueyellow_client,blueyellow_consultant,blueyellow_recruitment_project,theme_blueyellow \
+  --stop-after-init
 docker compose restart flectra
 ```
 

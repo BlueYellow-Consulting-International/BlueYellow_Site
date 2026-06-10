@@ -2,7 +2,7 @@
 {
     "name": "BlueYellow Client",
     "summary": "Client role and self-service organization creation.",
-    "version": "1.0.3",
+    "version": "1.0.5",
     "category": "BlueYellow",
     "depends": [
         "base",
@@ -21,6 +21,10 @@
         "wizard/client_organization_wizard_views.xml",
         "views/res_company_views.xml",
         "data/menu.xml",
+    ],
+    "demo": [
+        "demo/res_company_demo.xml",
+        "demo/res_users_demo.xml",
     ],
     "installable": True,
     "application": False,

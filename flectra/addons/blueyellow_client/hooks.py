@@ -22,8 +22,9 @@ def _migrate_client_users(env):
 
         owned = env["res.company"].sudo().search([("blueyellow_owner_id", "=", user.id)])
         if owned:
+            allowed_companies = user.company_ids | owned
             commands_company = {
-                "company_ids": [(6, 0, owned.ids)],
+                "company_ids": [(6, 0, allowed_companies.ids)],
                 "company_id": user.company_id.id if user.company_id in owned else owned[0].id,
             }
             if commands:

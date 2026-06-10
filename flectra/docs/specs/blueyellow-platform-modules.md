@@ -38,10 +38,12 @@ addons/blueyellow_client/
 ├── hooks.py                      # post-init + migration user cleanup
 ├── migrations/
 │   ├── 1.0.1/post-migrate.py
-│   └── 1.0.2/post-migrate.py
+│   ├── 1.0.2/post-migrate.py
+│   └── 1.0.4/post-migrate.py
 ├── models/
 │   ├── __init__.py
 │   ├── res_company.py            # inherit: owner field
+│   ├── res_users.py              # guard Client vs Project Administrator overlap
 │   ├── project_project.py        # company defaults + client search filter
 │   └── project_task.py           # client search filter
 ├── wizard/
@@ -53,6 +55,9 @@ addons/blueyellow_client/
 │   └── ir.model.access.csv
 ├── views/
 │   └── res_company_views.xml
+├── demo/
+│   ├── res_company_demo.xml      # Client Co.
+│   └── res_users_demo.xml        # Client Manager (demo/demo)
 └── data/
     └── menu.xml
 ```
@@ -522,9 +527,9 @@ Full dependency order is satisfied by Flectra's auto-install of module dependenc
 
 Replace ad-hoc group assignment with:
 
-| Groups | **Client** (`blueyellow_client.group_client`) only — do not also assign **Project Administrator** or **Settings** |
+| Groups | **Client** (`blueyellow_client.group_client`) only — do not also assign **Project Administrator** or **Settings**. Runtime guard removes Project Administrator if it is accidentally combined with Client. |
 | Default company | Set after first organization wizard run, or assign owned company manually |
-| Allowed companies | Owned organizations only (wizard enforces; migration fixes legacy users) |
+| Allowed companies | Existing allowed companies plus owned organizations (wizard and migration preserve existing assignments) |
 | Login | e.g. `client.manager@...` |
 
 The **Client** group implies recruitment, billing, timesheet approval, and **Client Project Manager**. Do not duplicate those on the user form.
@@ -535,7 +540,10 @@ The **Client** group implies recruitment, billing, timesheet approval, and **Cli
 docker compose exec flectra flectra-bin \
   --config=/etc/flectra/flectra.conf \
   --db_host=db --db_user=db --db_password=flectra \
-  -d flectra -u blueyellow_client,blueyellow_recruitment_project --stop-after-init
+  -d flectra \
+  -i blueyellow_client,blueyellow_consultant,blueyellow_recruitment_project \
+  -u blueyellow_client,blueyellow_consultant,blueyellow_recruitment_project,theme_blueyellow \
+  --stop-after-init
 docker compose restart flectra
 ```
 
@@ -585,4 +593,4 @@ Users should log out and back in after upgrade.
 
 ## Implementation status
 
-Both modules are implemented (v1.0.2). See **`docs/workflows/golden-path-hire-to-pay.md`** for the operational walkthrough.
+The platform modules are implemented. `blueyellow_client` is v1.0.5 with native demo XML (Client Co. + Client Manager). `blueyellow_consultant` and `blueyellow_recruitment_project` ship matching demo users and a sample published job on **fresh** database bootstrap. See **`docs/workflows/golden-path-hire-to-pay.md`** for the operational walkthrough.

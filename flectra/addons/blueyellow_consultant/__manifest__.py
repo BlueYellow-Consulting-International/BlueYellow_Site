@@ -2,7 +2,7 @@
 {
     "name": "BlueYellow Consultant",
     "summary": "Consultant role and scoped home menu.",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "category": "BlueYellow",
     "depends": [
         "base",
@@ -16,6 +16,10 @@
     ],
     "data": [
         "security/blueyellow_consultant_security.xml",
+    ],
+    "demo": [
+        "demo/res_users_demo.xml",
+        "demo/hr_employee_demo.xml",
     ],
     "installable": True,
     "application": False,

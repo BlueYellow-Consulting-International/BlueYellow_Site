@@ -8,7 +8,7 @@ class ResCompany(models.Model):
 
     blueyellow_owner_id = fields.Many2one(
         "res.users",
-        string="Created by",
+        string="BlueYellow Owner",
         index=True,
         copy=False,
         help="Client user who created this organization via the BlueYellow wizard.",
