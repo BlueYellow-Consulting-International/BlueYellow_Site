@@ -162,7 +162,7 @@ export default function ClientsPage() {
                     {user?.role === 'admin' && (
                       <>
                         <a
-                          href={`/add-client?id=${client.id}`}
+                          href={`/clients/${client.id}/edit`}
                           className="text-blue-400 transition hover:text-blue-300"
                         >
                           Edit

@@ -1,7 +1,6 @@
 import {
   Body,
   Controller,
-  Get,
   Post,
 } from '@nestjs/common';
 
@@ -14,19 +13,21 @@ import { PrismaService } from '../../infra/prisma.service';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
 
+/** Public shape of a user — never exposes the password hash. */
+function toPublicUser(user: { id: string; email: string; role: string }) {
+  return {
+    id: user.id,
+    email: user.email,
+    role: user.role,
+  };
+}
+
 @Controller('auth')
 export class AuthController {
   constructor(
     private prisma: PrismaService,
     private jwtService: JwtService,
   ) {}
-
-  @Get('login')
-  getLogin() {
-    return {
-      message: 'Login endpoint works 🚀',
-    };
-  }
 
   @Post('register')
   async register(@Body() body: RegisterDto) {
@@ -56,7 +57,7 @@ export class AuthController {
     return {
       success: true,
       message: 'User created',
-      user,
+      user: toPublicUser(user),
     };
   }
 
@@ -95,7 +96,7 @@ export class AuthController {
       success: true,
       message: 'Login successful',
       token,
-      user,
+      user: toPublicUser(user),
     };
   }
 }
