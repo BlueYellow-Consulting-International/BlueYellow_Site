@@ -14,12 +14,20 @@ export default function HomePage() {
         own database and is handed to the CRM by our backend worker — the
         website never depends on the CRM being available.
       </p>
-      <Link
-        href="/contact"
-        className="mt-10 rounded-md bg-slate-900 px-6 py-3 text-base font-semibold text-white transition hover:bg-slate-700"
-      >
-        Start a conversation
-      </Link>
+      <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+        <Link
+          href="/contact"
+          className="rounded-md bg-slate-900 px-6 py-3 text-base font-semibold text-white transition hover:bg-slate-700"
+        >
+          Start a conversation
+        </Link>
+        <Link
+          href="/login"
+          className="rounded-md border border-slate-300 px-6 py-3 text-base font-semibold text-slate-900 transition hover:bg-slate-100"
+        >
+          Log in
+        </Link>
+      </div>
     </main>
   );
 }
