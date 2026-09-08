@@ -113,6 +113,27 @@ export default function DashboardPage() {
         </div>
 
         <Card className="mt-10">
+          <h3 className="mb-6 text-2xl font-semibold">Recent Activity</h3>
+
+          <div className="flex flex-col gap-4">
+            <div className="flex justify-between border-b border-zinc-900 pb-4">
+              <p>New client added</p>
+              <span className="text-zinc-500">Just now</span>
+            </div>
+
+            <div className="flex justify-between border-b border-zinc-900 pb-4">
+              <p>Dashboard analytics updated</p>
+              <span className="text-zinc-500">Live</span>
+            </div>
+
+            <div className="flex justify-between">
+              <p>JWT authentication active</p>
+              <span className="text-zinc-500">Secure</span>
+            </div>
+          </div>
+        </Card>
+
+        <Card className="mt-10">
           <div className="mb-8 flex items-center justify-between">
             <div>
               <h3 className="text-2xl font-semibold">Revenue Analytics</h3>
