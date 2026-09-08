@@ -1,0 +1,31 @@
+{
+  "name": "consulting-site",
+  "private": true,
+  "packageManager": "pnpm@9.15.4",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "pnpm db:generate && pnpm -r build",
+    "dev": "pnpm -r --parallel dev",
+    "typecheck": "pnpm -r typecheck",
+    "db:generate": "pnpm --filter @consulting/api exec prisma generate",
+    "db:migrate": "pnpm --filter @consulting/api exec prisma migrate dev",
+    "db:seed": "pnpm --filter @consulting/api exec prisma db seed"
+  },
+  "devDependencies": {
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@prisma/client",
+      "@prisma/engines",
+      "prisma",
+      "esbuild",
+      "@swc/core",
+      "@tailwindcss/oxide",
+      "sharp"
+    ]
+  }
+}

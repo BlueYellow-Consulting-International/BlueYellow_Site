@@ -1,0 +1,83 @@
+// Our own database — the single source of truth for website/application data.
+// Flectra has its own database; the ONLY bridge between the two is the worker
+// consuming the outbox below.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum LeadStatus {
+  NEW
+  SYNCED
+  FAILED
+}
+
+enum OutboxStatus {
+  PENDING
+  PROCESSING
+  SYNCED
+  FAILED
+}
+
+model Lead {
+  id               String     @id @default(cuid())
+  name             String
+  email            String
+  company          String?
+  message          String
+  status           LeadStatus @default(NEW)
+  flectraLeadId    String?    @map("flectra_lead_id")
+  flectraPartnerId String?    @map("flectra_partner_id")
+  createdAt        DateTime   @default(now()) @map("created_at")
+  updatedAt        DateTime   @updatedAt @map("updated_at")
+  archivedAt       DateTime?  @map("archived_at")
+  outboxEvents     OutboxEvent[]
+
+  @@index([email])
+  @@map("leads")
+}
+
+model OutboxEvent {
+  id          String       @id @default(cuid())
+  type        String
+  payload     Json
+  status      OutboxStatus @default(PENDING)
+  attempts    Int          @default(0)
+  lastError   String?      @map("last_error")
+  availableAt DateTime     @default(now()) @map("available_at")
+  createdAt   DateTime     @default(now()) @map("created_at")
+  processedAt DateTime?    @map("processed_at")
+  leadId      String?      @map("lead_id")
+  lead        Lead?        @relation(fields: [leadId], references: [id], onDelete: SetNull)
+
+  @@index([status, availableAt])
+  @@map("outbox_events")
+}
+
+// Platform accounts (ported from consulting-platform-backend)
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  role         String   @default("user")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  @@map("users")
+}
+
+// Client records (ported from consulting-platform-backend)
+model Client {
+  id        String   @id @default(cuid())
+  name      String
+  service   String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("clients")
+}
+
