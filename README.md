@@ -7,15 +7,24 @@ Blue Yellow Consulting Inc. Website — pnpm monorepo.
 
 ```
 apps/
-  api/        NestJS: health, leads, auth (register/login, JWT), clients. No Flectra code.
+  api/        NestJS: health, leads, auth (register/login/me, JWT), clients. No Flectra code.
   worker/     NestJS: outbox poller + Flectra integration (port/adapter/mapper).
-  web/        Next.js: public site, contact form, client/consultant portal. Talks only to the API.
+  web/        Next.js: public site, contact form, client/consultant portal.
+              Portal calls only its own /api BFF routes; the BFF forwards to the API
+              server-side. Session = httpOnly cookie on the web origin — no browser storage.
   crm/        Internal CRM frontend (lead management).
 packages/
   shared/     zod schemas + types shared by web, api, and worker.
   flectra/    Pure Flectra JSON-RPC client (transport only).
 flectra/      Flectra stack (docker, config, BlueYellow addons, docs/specs).
 ```
+
+### Session model (alpha)
+
+- Login/register issue a JWT that goes **straight into an httpOnly `SameSite=Lax` cookie** (`by_session`) set by the web BFF — responses never carry the token.
+- All mutations through the BFF check `Origin` against `Host` → cross-origin POST/PATCH/DELETE rejected with 403.
+- `GET /api/auth/me` resolves the session (verified token → role fresh from the DB); logout clears the cookie.
+- `COOKIE_SECURE=true` in `.env` once HTTPS terminates in front (NPM); BFF talks to the API via `API_URL` (never public).
 
 ## Local Development (containers — default)
 

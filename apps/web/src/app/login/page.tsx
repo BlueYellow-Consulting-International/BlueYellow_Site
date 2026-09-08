@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 
 import toast from 'react-hot-toast';
 
-import { portalApi, saveSession } from '../../lib/portal';
+import { portalApi } from '../../lib/portal';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -23,9 +23,8 @@ export default function LoginPage() {
     try {
       const data = await portalApi.login(email, password);
 
-      if (data.success && data.token && data.user) {
-        saveSession({ token: data.token, user: data.user });
-
+      if (data.success) {
+        // Session lives in the httpOnly BFF cookie — nothing to store here.
         toast.success('Login successful');
         router.push('/dashboard');
       } else {

@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 
 import toast from 'react-hot-toast';
 
-import { getSession, createClient } from '../../lib/portal';
+import { createClient, portalApi } from '../../lib/portal';
 
 export default function AddClientPage() {
   const [name, setName] = useState('');
@@ -18,25 +18,24 @@ export default function AddClientPage() {
   const router = useRouter();
 
   useEffect(() => {
-    if (!getSession()) {
-      router.push('/login');
-    }
+    const checkSession = async () => {
+      const session = await portalApi.me();
+
+      if (!session.success) {
+        router.push('/login');
+      }
+    };
+
+    checkSession();
   }, [router]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const session = getSession();
-
-    if (!session) {
-      toast.error('Session expired — sign in again');
-      return;
-    }
-
     setLoading(true);
 
     try {
-      await createClient(session.token, { name, service });
+      await createClient({ name, service });
       toast.success('Client created');
       router.push('/clients');
     } catch {

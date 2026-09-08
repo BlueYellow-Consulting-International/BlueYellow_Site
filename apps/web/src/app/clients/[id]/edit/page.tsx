@@ -9,7 +9,7 @@ import { useRouter, useParams } from 'next/navigation';
 
 import toast from 'react-hot-toast';
 
-import { getSession, listClients, updateClient } from '../../../../lib/portal';
+import { listClients, portalApi, updateClient } from '../../../../lib/portal';
 
 export default function EditClientPage() {
   const params = useParams<{ id: string }>();
@@ -23,16 +23,16 @@ export default function EditClientPage() {
   const router = useRouter();
 
   useEffect(() => {
-    const session = getSession();
-
-    if (!session) {
-      router.push('/login');
-      return;
-    }
-
     const loadClient = async () => {
+      const session = await portalApi.me();
+
+      if (!session.success || !id) {
+        router.push('/login');
+        return;
+      }
+
       try {
-        const found = (await listClients(session.token)).find((client) => client.id === id);
+        const found = (await listClients()).find((client) => client.id === id);
 
         if (found) {
           setName(found.name);
@@ -55,9 +55,7 @@ export default function EditClientPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const session = getSession();
-
-    if (!session || !id) {
+    if (!id) {
       toast.error('Session expired — sign in again');
       return;
     }
@@ -65,7 +63,7 @@ export default function EditClientPage() {
     setLoading(true);
 
     try {
-      await updateClient(session.token, id, { name, service });
+      await updateClient(id, { name, service });
       toast.success('Client updated');
       router.push('/clients');
     } catch {

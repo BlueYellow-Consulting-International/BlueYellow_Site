@@ -10,7 +10,7 @@ import { LineChart, Line, Tooltip, ResponsiveContainer, XAxis, YAxis } from 'rec
 
 import Card from '../components/Card';
 import Sidebar from '../components/Sidebar';
-import { analytics as analyticsApi, clearSession, type AnalyticsResponse } from '../../lib/portal';
+import { analytics, portalApi, type AnalyticsResponse } from '../../lib/portal';
 
 // Demo placeholder until real revenue tracking exists behind the API.
 const revenueData = [
@@ -25,29 +25,37 @@ const revenueData = [
 export default function DashboardPage() {
   const router = useRouter();
 
-  const [analytics, setAnalytics] = useState<AnalyticsResponse | null>(null);
+  const [analyticsData, setAnalyticsData] = useState<AnalyticsResponse | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const load = async () => {
+      const session = await portalApi.me();
 
-    if (!token) {
-      router.push('/login');
-      return;
-    }
+      if (!session.success) {
+        router.push('/login');
+        return;
+      }
 
-    const fetchAnalytics = async () => {
       try {
-        setAnalytics(await analyticsApi(token));
+        setAnalyticsData(await analytics());
+
+        setLoading(false);
       } catch {
         toast.error('Failed to load analytics');
-      } finally {
+
         setLoading(false);
       }
     };
 
-    fetchAnalytics();
+    load();
   }, [router]);
+
+  const handleLogout = async () => {
+    await portalApi.logout();
+    toast.success('Logged out');
+    router.push('/login');
+  };
 
   if (loading) {
     return (
@@ -72,9 +80,7 @@ export default function DashboardPage() {
     <main className="flex min-h-screen bg-black text-white">
       <Sidebar
         onLogout={() => {
-          clearSession();
-          toast.success('Logged out');
-          router.push('/login');
+          handleLogout();
         }}
       />
 
@@ -90,7 +96,7 @@ export default function DashboardPage() {
           <Card className="transition duration-300 hover:border-white hover:-translate-y-1">
             <h3 className="mb-2 text-xl font-semibold">Clients</h3>
 
-            <p className="text-4xl font-bold">{analytics?.totalClients || 0}</p>
+            <p className="text-4xl font-bold">{analyticsData?.totalClients || 0}</p>
 
             <p className="mt-2 text-zinc-400">Active clients</p>
           </Card>
@@ -98,7 +104,7 @@ export default function DashboardPage() {
           <Card className="transition duration-300 hover:border-white hover:-translate-y-1">
             <h3 className="mb-2 text-xl font-semibold">Revenue</h3>
 
-            <p className="text-4xl font-bold">${analytics?.monthlyRevenue || 0}</p>
+            <p className="text-4xl font-bold">${analyticsData?.monthlyRevenue || 0}</p>
 
             <p className="mt-2 text-zinc-400">Monthly revenue (placeholder formula)</p>
           </Card>
@@ -106,7 +112,7 @@ export default function DashboardPage() {
           <Card className="transition duration-300 hover:border-white hover:-translate-y-1">
             <h3 className="mb-2 text-xl font-semibold">Projects</h3>
 
-            <p className="text-4xl font-bold">{analytics?.activeProjects || 0}</p>
+            <p className="text-4xl font-bold">{analyticsData?.activeProjects || 0}</p>
 
             <p className="mt-2 text-zinc-400">Active projects (placeholder formula)</p>
           </Card>

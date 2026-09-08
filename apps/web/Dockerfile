@@ -13,10 +13,6 @@ RUN pnpm install --frozen-lockfile
 COPY packages/shared/ packages/shared/
 COPY apps/web/ apps/web/
 
-# Public API base URL is baked into the client bundle at build time
-ARG NEXT_PUBLIC_API_URL=http://localhost:4000
-ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
-
 RUN pnpm --filter @consulting/shared build \
   && pnpm --filter @consulting/web build
 

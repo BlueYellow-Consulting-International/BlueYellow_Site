@@ -1,7 +1,10 @@
 import {
   Body,
   Controller,
+  Get,
   Post,
+  Request,
+  UseGuards,
 } from '@nestjs/common';
 
 import { JwtService } from '@nestjs/jwt';
@@ -9,6 +12,8 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 
 import { PrismaService } from '../../infra/prisma.service';
+
+import { JwtGuard } from './guards/jwt.guard';
 
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
@@ -22,12 +27,40 @@ function toPublicUser(user: { id: string; email: string; role: string }) {
   };
 }
 
+/** JWT payload shape issued at login. */
+interface TokenPayload {
+  userId: string;
+  email: string;
+  role: string;
+}
+
 @Controller('auth')
 export class AuthController {
   constructor(
     private prisma: PrismaService,
     private jwtService: JwtService,
   ) {}
+
+  /** Current session user resolved from a verified token, role fresh from the DB. */
+  @Get('me')
+  @UseGuards(JwtGuard)
+  async me(@Request() request: { user: TokenPayload }) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: request.user.userId },
+    });
+
+    if (!user) {
+      return {
+        success: false,
+        message: 'User not found',
+      };
+    }
+
+    return {
+      success: true,
+      user: toPublicUser(user),
+    };
+  }
 
   @Post('register')
   async register(@Body() body: RegisterDto) {

@@ -1,7 +1,6 @@
-// Portal API (auth + clients) — same principle as api.ts: the browser talks only
-// to the NestJS API, never to Flectra, and the base URL comes from the environment.
-
-const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000';
+// Portal client: everything goes through the BFF route handlers under /api
+// (same-origin). The session is an httpOnly cookie managed by the BFF —
+// no tokens or user records in browser storage.
 
 export interface PortalUser {
   id: string;
@@ -26,105 +25,77 @@ export interface AnalyticsResponse {
 export interface AuthResponse {
   success: boolean;
   message?: string;
-  token?: string;
   user?: PortalUser;
 }
 
-export interface TokenStorage {
-  token: string;
-  user: PortalUser;
+export interface MeResponse {
+  success: boolean;
+  user?: PortalUser;
 }
 
-/** The API returns `success: false` with HTTP 200, so callers inspect the body. */
-async function request<TResponse>(path: string, options: RequestInit = {}, token?: string | null): Promise<TResponse> {
-  const response = await fetch(`${apiBaseUrl}${path}`, {
+async function request<TResponse>(path: string, options: RequestInit = {},
+): Promise<TResponse> {
+  const response = await fetch(`/api${path}`, {
     ...options,
     headers: {
+      'Content-Type': 'application/json',
       ...(options.headers ?? {}),
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
     },
   });
 
   return (await response.json()) as TResponse;
 }
 
-export function saveSession({ token, user }: TokenStorage): void {
-  localStorage.setItem('token', token);
-  localStorage.setItem('user', JSON.stringify(user));
-}
-
-export function clearSession(): void {
-  localStorage.removeItem('token');
-  localStorage.removeItem('user');
-}
-
-export function getSession(): TokenStorage | null {
-  const raw = localStorage.getItem('user');
-  const token = localStorage.getItem('token');
-
-  if (!token || !raw) {
-    return null;
-  }
-
-  try {
-    return { token, user: JSON.parse(raw) as PortalUser };
-  } catch {
-    return null;
-  }
-}
-
-// Named helpers the pages call directly with the session token.
-export const analytics = (token: string): Promise<AnalyticsResponse> => portalApi.analytics(token);
-
-export const listClients = (token: string): Promise<ClientRecord[]> => portalApi.listClients(token);
-
-export const createClient = (
-  token: string,
-  body: { name: string; service: string },
-): Promise<ClientRecord> => portalApi.createClient(token, body);
-
-export const updateClient = (
-  token: string,
-  id: string,
-  body: { name: string; service: string },
-): Promise<ClientRecord> => portalApi.updateClient(token, id, body);
-
-export const deleteClient = (token: string, id: string): Promise<{ success: boolean }> =>
-  portalApi.deleteClient(token, id);
-
 export const portalApi = {
-  login: (email: string, password: string) =>
-    request<AuthResponse>('/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    }),
-
   register: (email: string, password: string) =>
     request<AuthResponse>('/auth/register', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
     }),
 
-  analytics: (token: string) => request<AnalyticsResponse>('/clients/analytics', {}, token),
+  login: (email: string, password: string) =>
+    request<AuthResponse>('/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+    }),
 
-  listClients: (token: string) => request<ClientRecord[]>('/clients', {}, token),
+  logout: () => request<{ success: boolean }>('/auth/logout', { method: 'POST' }),
 
-  createClient: (token: string, body: { name: string; service: string }) =>
+  me: () => request<MeResponse>('/auth/me'),
+
+  analytics: () => request<AnalyticsResponse>('/clients/analytics'),
+
+  listClients: () => request<ClientRecord[]>('/clients'),
+
+  createClient: (body: { name: string; service: string }) =>
     request<ClientRecord>('/clients', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
-    }, token),
+    }),
 
-  updateClient: (token: string, id: string, body: { name: string; service: string }) =>
-    request<ClientRecord>(`/clients/${id}`, {
+  updateClient: (id: string, body: { name: string; service: string }) =>
+    request<ClientRecord>(`/clients/${encodeURIComponent(id)}`, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
-    }, token),
+    }),
 
-  deleteClient: (token: string, id: string) =>
-    request<{ success: boolean }>(`/clients/${id}`, { method: 'DELETE' }, token),
+  deleteClient: (id: string) =>
+    request<{ success: boolean }>(`/clients/${encodeURIComponent(id)}`, { method: 'DELETE' }),
 };
+
+// Named helpers the pages call directly.
+export const analytics = (): Promise<AnalyticsResponse> => portalApi.analytics();
+
+export const listClients = (): Promise<ClientRecord[]> => portalApi.listClients();
+
+export const createClient = (
+  body: { name: string; service: string },
+): Promise<ClientRecord> => portalApi.createClient(body);
+
+export const updateClient = (
+  id: string,
+  body: { name: string; service: string },
+): Promise<ClientRecord> => portalApi.updateClient(id, body);
+
+export const deleteClient = (id: string): Promise<{ success: boolean }> =>
+  portalApi.deleteClient(id);
