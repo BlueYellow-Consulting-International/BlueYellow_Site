@@ -78,6 +78,9 @@ importers:
 
   apps/crm:
     dependencies:
+      '@consulting/shared':
+        specifier: workspace:^
+        version: link:../../packages/shared
       next:
         specifier: 15.5.25
         version: 15.5.25(@types/node@20.19.43)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
