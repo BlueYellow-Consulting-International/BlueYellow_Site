@@ -1,16 +1,14 @@
-# Local development stack.
-# The apps (web / api / worker) run on the host via `pnpm dev` —
-# compose only provides the infrastructure: our PostgreSQL and Flectra (with its own DB).
 services:
   db:
     image: postgres:16-alpine
     container_name: consulting-db
+    restart: unless-stopped
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-consulting}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
       POSTGRES_DB: ${POSTGRES_DB:-consulting}
     ports:
-      - "${DB_HOST_PORT:-5432}:5432"
+      - "${DB_HOST_PORT:-5433}:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
     healthcheck:
@@ -22,6 +20,8 @@ services:
   flectra-db:
     image: postgres:16-alpine
     container_name: consulting-flectra-db
+    restart: unless-stopped
+    profiles: ["flectra"]
     environment:
       POSTGRES_USER: ${FLECTRA_DB_USER:-flectra}
       POSTGRES_PASSWORD: ${FLECTRA_DB_PASSWORD:?Set FLECTRA_DB_PASSWORD in .env}
@@ -33,9 +33,15 @@ services:
       timeout: 5s
       retries: 12
 
+  # Fully self-contained Flectra POC stack (fresh DB at data/).
+  # Start with: docker compose --profile flectra up -d
+  # The long-running Flectra deployment on this host lives in flectra/ (its own compose);
+  # it keeps port 7073, which is why these two services are profile-gated.
   flectra:
     image: flectrahq/flectra:latest
     container_name: consulting-flectra
+    restart: unless-stopped
+    profiles: ["flectra"]
     depends_on:
       flectra-db:
         condition: service_healthy
@@ -50,7 +56,67 @@ services:
       - flectra_data:/var/lib/flectra
     tty: true
 
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    image: blueyellow-api
+    container_name: consulting-api
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PORT: "4000"
+      DATABASE_URL: postgresql://${POSTGRES_USER:-consulting}:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}@db:5432/${POSTGRES_DB:-consulting}?schema=public
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in .env}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@blueyellow.test}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin123-change-me}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3000,http://127.0.0.1:3000}
+    ports:
+      - "127.0.0.1:4000:4000"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:4000/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+    networks:
+      default: {}
+      proxy:
+        aliases: [consulting-api]
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:4000}
+    image: blueyellow-web
+    container_name: consulting-web
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:3000:3000"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+    networks:
+      default: {}
+      proxy:
+        aliases: [consulting-web]
+
 volumes:
   db_data:
   flectra_db_data:
   flectra_data:
+
+networks:
+  proxy:
+    external: true
+    name: docker_default
