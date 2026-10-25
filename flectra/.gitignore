@@ -2,8 +2,10 @@
 /postgres_data/
 /var/lib/flectra/
 
-# Local environment overrides
+# Local environment / secrets (never commit)
+.env
 .env.local
+.env.*.local
 
 # Python/editor noise
 __pycache__/

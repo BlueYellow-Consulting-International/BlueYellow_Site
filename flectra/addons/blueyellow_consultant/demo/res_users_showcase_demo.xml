@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <data noupdate="1">
+        <record id="partner_consultant_alex" model="res.partner">
+            <field name="name">Alex Consultant</field>
+            <field name="email">consultant.alex@blueyellow.demo</field>
+            <field name="phone">+1 555-010-3100</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_published">True</field>
+        </record>
+
+        <record id="user_consultant_alex" model="res.users" context="{'no_reset_password': True}">
+            <field name="partner_id" ref="partner_consultant_alex"/>
+            <field name="login">consultant.alex@blueyellow.demo</field>
+            <field name="password">demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="company_ids" eval="[(6, 0, [ref('base.main_company')])]"/>
+            <field name="groups_id" eval="[Command.set([ref('blueyellow_consultant.group_consultant')])]"/>
+        </record>
+
+        <record id="partner_consultant_jordan" model="res.partner">
+            <field name="name">Jordan Consultant</field>
+            <field name="email">consultant.jordan@blueyellow.demo</field>
+            <field name="phone">+1 555-010-3200</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_published">True</field>
+        </record>
+
+        <record id="user_consultant_jordan" model="res.users" context="{'no_reset_password': True}">
+            <field name="partner_id" ref="partner_consultant_jordan"/>
+            <field name="login">consultant.jordan@blueyellow.demo</field>
+            <field name="password">demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="company_ids" eval="[(6, 0, [ref('base.main_company')])]"/>
+            <field name="groups_id" eval="[Command.set([ref('blueyellow_consultant.group_consultant')])]"/>
+        </record>
+    </data>
+</flectra>

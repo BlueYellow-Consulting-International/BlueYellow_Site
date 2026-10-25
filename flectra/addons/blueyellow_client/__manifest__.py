@@ -24,7 +24,9 @@
     ],
     "demo": [
         "demo/res_company_demo.xml",
+        "demo/res_company_northstar_demo.xml",
         "demo/res_users_demo.xml",
+        "demo/res_users_showcase_demo.xml",
     ],
     "installable": True,
     "application": False,
