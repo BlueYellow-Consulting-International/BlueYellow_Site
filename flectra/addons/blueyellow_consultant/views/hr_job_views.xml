@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <record id="hr_job_view_form_consultant_pool" model="ir.ui.view">
+        <field name="name">hr.job.form.consultant.pool</field>
+        <field name="model">hr.job</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_job_survey"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button name="action_blueyellow_open_job_website"
+                            type="object"
+                            string="Apply on website"
+                            class="btn-primary"
+                            groups="blueyellow_consultant.group_consultant"/>
+                </header>
+            </xpath>
+        </field>
+    </record>
+</flectra>

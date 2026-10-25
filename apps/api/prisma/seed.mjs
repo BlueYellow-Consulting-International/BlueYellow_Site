@@ -2,7 +2,9 @@
 // Credentials come from apps/api/.env: ADMIN_EMAIL / ADMIN_PASSWORD.
 
 import bcrypt from 'bcryptjs';
-import { PrismaClient } from '@prisma/client';
+import pkg from '@prisma/client';
+
+const { PrismaClient } = pkg;
 
 const prisma = new PrismaClient();
 

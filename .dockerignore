@@ -1,0 +1,21 @@
+# Docker build context (repo root) — keep it lean
+.git
+**/node_modules
+**/.next
+**/dist
+**/coverage
+
+# Legacy two-folder layout (not needed in images)
+consulting-platform-backend
+consulting-platform-frontend
+
+# Flectra stack: heavy runtime data not needed in image context
+flectra/postgres_data
+flectra/var
+flectra/docker-compose.yaml.bak
+
+# Local runtime files
+.env
+.env.local
+*.log
+tmp

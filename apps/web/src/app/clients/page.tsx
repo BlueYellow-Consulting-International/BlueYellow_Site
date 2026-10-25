@@ -6,33 +6,30 @@ import toast from 'react-hot-toast';
 
 import Card from '../components/Card';
 import {
-  getSession,
   listClients,
+  portalApi,
   deleteClient,
   type ClientRecord,
+  type PortalUser,
 } from '../../lib/portal';
 
 export default function ClientsPage() {
   const [clients, setClients] = useState<ClientRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
-  const [user, setUser] = useState<{ role: string } | null>(null);
+  const [user, setUser] = useState<PortalUser | null>(null);
 
   useEffect(() => {
-    const session = getSession();
-
-    if (session) {
-      setUser(session.user);
-    }
-
-    const fetchClients = async () => {
+    const loadClients = async () => {
       try {
-        if (!session) {
-          setLoading(false);
-          return;
-        }
+        const session = await portalApi.me();
 
-        setClients(await listClients(session.token));
+        if (session.success && session.user) {
+          setUser(session.user);
+          setClients(await listClients());
+        } else {
+          window.location.href = '/login';
+        }
       } catch {
         toast.error('Failed to load clients');
       } finally {
@@ -40,19 +37,12 @@ export default function ClientsPage() {
       }
     };
 
-    fetchClients();
+    loadClients();
   }, []);
 
   const handleDelete = async (id: string) => {
-    const session = getSession();
-
-    if (!session) {
-      toast.error('Session expired — sign in again');
-      return;
-    }
-
     try {
-      await deleteClient(session.token, id);
+      await deleteClient(id);
 
       setClients((current) => current.filter((client) => client.id !== id));
       toast.success('Client deleted');
@@ -162,7 +152,7 @@ export default function ClientsPage() {
                     {user?.role === 'admin' && (
                       <>
                         <a
-                          href={`/add-client?id=${client.id}`}
+                          href={`/clients/${client.id}/edit`}
                           className="text-blue-400 transition hover:text-blue-300"
                         >
                           Edit

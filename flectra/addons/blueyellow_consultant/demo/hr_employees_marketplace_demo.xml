@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <data noupdate="1">
+        <record id="employee_consultant_c03" model="hr.employee">
+            <field name="name">Sam Okonkwo</field>
+            <field name="user_id" ref="user_consultant_c03"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="work_contact_id" ref="partner_consultant_c03"/>
+            <field name="work_email">consultant.sam@blueyellow.demo</field>
+            <field name="job_title">Cloud Architect</field>
+        </record>
+        <record id="employee_consultant_c04" model="hr.employee">
+            <field name="name">Priya Sharma</field>
+            <field name="user_id" ref="user_consultant_c04"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="work_contact_id" ref="partner_consultant_c04"/>
+            <field name="work_email">consultant.priya@blueyellow.demo</field>
+            <field name="job_title">Data Engineer</field>
+        </record>
+        <record id="employee_consultant_c05" model="hr.employee">
+            <field name="name">Marcus Chen</field>
+            <field name="user_id" ref="user_consultant_c05"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="work_contact_id" ref="partner_consultant_c05"/>
+            <field name="work_email">consultant.marcus@blueyellow.demo</field>
+            <field name="job_title">DevOps Engineer</field>
+        </record>
+        <record id="employee_consultant_c06" model="hr.employee">
+            <field name="name">Elena Vasquez</field>
+            <field name="user_id" ref="user_consultant_c06"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="work_contact_id" ref="partner_consultant_c06"/>
+            <field name="work_email">consultant.elena@blueyellow.demo</field>
+            <field name="job_title">UX Research Lead</field>
+        </record>
+        <record id="employee_consultant_c07" model="hr.employee">
+            <field name="name">Noah Fischer</field>
+            <field name="user_id" ref="user_consultant_c07"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="work_contact_id" ref="partner_consultant_c07"/>
+            <field name="work_email">consultant.noah@blueyellow.demo</field>
+            <field name="job_title">Security Consultant</field>
+        </record>
+        <record id="employee_consultant_c08" model="hr.employee">
+            <field name="name">Aisha Patel</field>
+            <field name="user_id" ref="user_consultant_c08"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="work_contact_id" ref="partner_consultant_c08"/>
+            <field name="work_email">consultant.aisha@blueyellow.demo</field>
+            <field name="job_title">Product Manager (Contract)</field>
+        </record>
+        <record id="employee_consultant_c09" model="hr.employee">
+            <field name="name">Diego Morales</field>
+            <field name="user_id" ref="user_consultant_c09"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="work_contact_id" ref="partner_consultant_c09"/>
+            <field name="work_email">consultant.diego@blueyellow.demo</field>
+            <field name="job_title">Mobile Developer</field>
+        </record>
+        <record id="employee_consultant_c10" model="hr.employee">
+            <field name="name">Hannah Kim</field>
+            <field name="user_id" ref="user_consultant_c10"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="work_contact_id" ref="partner_consultant_c10"/>
+            <field name="work_email">consultant.hannah@blueyellow.demo</field>
+            <field name="job_title">QA Automation Engineer</field>
+        </record>
+        <record id="employee_consultant_c11" model="hr.employee">
+            <field name="name">Oliver Grant</field>
+            <field name="user_id" ref="user_consultant_c11"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="work_contact_id" ref="partner_consultant_c11"/>
+            <field name="work_email">consultant.oliver@blueyellow.demo</field>
+            <field name="job_title">Salesforce Developer</field>
+        </record>
+        <record id="employee_consultant_c12" model="hr.employee">
+            <field name="name">Zoe Nakamura</field>
+            <field name="user_id" ref="user_consultant_c12"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="work_contact_id" ref="partner_consultant_c12"/>
+            <field name="work_email">consultant.zoe@blueyellow.demo</field>
+            <field name="job_title">Technical Writer</field>
+        </record>
+        <record id="employee_consultant_c13" model="hr.employee">
+            <field name="name">Ryan O'Brien</field>
+            <field name="user_id" ref="user_consultant_c13"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="work_contact_id" ref="partner_consultant_c13"/>
+            <field name="work_email">consultant.ryan@blueyellow.demo</field>
+            <field name="job_title">ERP Functional Consultant</field>
+        </record>
+        <record id="employee_consultant_c14" model="hr.employee">
+            <field name="name">Fatima Al-Hassan</field>
+            <field name="user_id" ref="user_consultant_c14"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="work_contact_id" ref="partner_consultant_c14"/>
+            <field name="work_email">consultant.fatima@blueyellow.demo</field>
+            <field name="job_title">ML Engineer</field>
+        </record>
+        <record id="employee_consultant_c15" model="hr.employee">
+            <field name="name">Chris Bergstrom</field>
+            <field name="user_id" ref="user_consultant_c15"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="work_contact_id" ref="partner_consultant_c15"/>
+            <field name="work_email">consultant.chris@blueyellow.demo</field>
+            <field name="job_title">Site Reliability Engineer</field>
+        </record>
+        <record id="employee_consultant_c16" model="hr.employee">
+            <field name="name">Morgan Blake</field>
+            <field name="user_id" ref="user_consultant_c16"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="work_contact_id" ref="partner_consultant_c16"/>
+            <field name="work_email">consultant.morgan@blueyellow.demo</field>
+            <field name="job_title">Scrum Master</field>
+        </record>
+        <record id="employee_consultant_c17" model="hr.employee">
+            <field name="name">Yuki Tanaka</field>
+            <field name="user_id" ref="user_consultant_c17"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="work_contact_id" ref="partner_consultant_c17"/>
+            <field name="work_email">consultant.yuki@blueyellow.demo</field>
+            <field name="job_title">iOS Engineer</field>
+        </record>
+        <record id="employee_consultant_c18" model="hr.employee">
+            <field name="name">Isabelle Dubois</field>
+            <field name="user_id" ref="user_consultant_c18"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="work_contact_id" ref="partner_consultant_c18"/>
+            <field name="work_email">consultant.isabelle@blueyellow.demo</field>
+            <field name="job_title">Change Management Lead</field>
+        </record>
+        <record id="employee_consultant_c19" model="hr.employee">
+            <field name="name">Kwame Asante</field>
+            <field name="user_id" ref="user_consultant_c19"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="work_contact_id" ref="partner_consultant_c19"/>
+            <field name="work_email">consultant.kwame@blueyellow.demo</field>
+            <field name="job_title">Business Intelligence Developer</field>
+        </record>
+        <record id="employee_consultant_c20" model="hr.employee">
+            <field name="name">Lily Nguyen</field>
+            <field name="user_id" ref="user_consultant_c20"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="work_contact_id" ref="partner_consultant_c20"/>
+            <field name="work_email">consultant.lily@blueyellow.demo</field>
+            <field name="job_title">Frontend Engineer (React)</field>
+        </record>
+        <record id="employee_consultant_c21" model="hr.employee">
+            <field name="name">Tomislav Petrov</field>
+            <field name="user_id" ref="user_consultant_c21"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="work_contact_id" ref="partner_consultant_c21"/>
+            <field name="work_email">consultant.tomislav@blueyellow.demo</field>
+            <field name="job_title">Backend Engineer (Go)</field>
+        </record>
+        <record id="employee_consultant_c22" model="hr.employee">
+            <field name="name">Rachel Stein</field>
+            <field name="user_id" ref="user_consultant_c22"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="work_contact_id" ref="partner_consultant_c22"/>
+            <field name="work_email">consultant.rachel@blueyellow.demo</field>
+            <field name="job_title">HRIS Consultant</field>
+        </record>
+        <record id="employee_consultant_c23" model="hr.employee">
+            <field name="name">Benicio Alvarez</field>
+            <field name="user_id" ref="user_consultant_c23"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="work_contact_id" ref="partner_consultant_c23"/>
+            <field name="work_email">consultant.benicio@blueyellow.demo</field>
+            <field name="job_title">Network Engineer</field>
+        </record>
+        <record id="employee_consultant_c24" model="hr.employee">
+            <field name="name">Sienna Walsh</field>
+            <field name="user_id" ref="user_consultant_c24"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="work_contact_id" ref="partner_consultant_c24"/>
+            <field name="work_email">consultant.sienna@blueyellow.demo</field>
+            <field name="job_title">Content Strategist</field>
+        </record>
+    </data>
+</flectra>

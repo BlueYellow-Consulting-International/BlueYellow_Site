@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <data noupdate="1">
+        <record id="project_job_harbor_logistics" model="project.project">
+            <field name="name">Supply Chain Analyst Engagement</field>
+            <field name="company_id" ref="blueyellow_client.company_harbor_logistics"/>
+            <field name="privacy_visibility">portal</field>
+        </record>
+        <record id="job_harbor_logistics" model="hr.job">
+            <field name="name">Supply Chain Analyst</field>
+            <field name="company_id" ref="blueyellow_client.company_harbor_logistics"/>
+            <field name="project_id" ref="project_job_harbor_logistics"/>
+            <field name="user_id" ref="blueyellow_client.user_manager_harbor_logistics"/>
+            <field name="is_published">True</field>
+            <field name="website_description" type="html">
+                <p>Supply Chain Analyst — apply via BlueYellow marketplace.</p>
+            </field>
+        </record>
+        <record id="project_job_summit_fintech" model="project.project">
+            <field name="name">Payments Platform Engineer Engagement</field>
+            <field name="company_id" ref="blueyellow_client.company_summit_fintech"/>
+            <field name="privacy_visibility">portal</field>
+        </record>
+        <record id="job_summit_fintech" model="hr.job">
+            <field name="name">Payments Platform Engineer</field>
+            <field name="company_id" ref="blueyellow_client.company_summit_fintech"/>
+            <field name="project_id" ref="project_job_summit_fintech"/>
+            <field name="user_id" ref="blueyellow_client.user_manager_summit_fintech"/>
+            <field name="is_published">True</field>
+            <field name="website_description" type="html">
+                <p>Payments Platform Engineer — apply via BlueYellow marketplace.</p>
+            </field>
+        </record>
+        <record id="project_job_verde_health" model="project.project">
+            <field name="name">Healthcare Data Engineer Engagement</field>
+            <field name="company_id" ref="blueyellow_client.company_verde_health"/>
+            <field name="privacy_visibility">portal</field>
+        </record>
+        <record id="job_verde_health" model="hr.job">
+            <field name="name">Healthcare Data Engineer</field>
+            <field name="company_id" ref="blueyellow_client.company_verde_health"/>
+            <field name="project_id" ref="project_job_verde_health"/>
+            <field name="user_id" ref="blueyellow_client.user_manager_verde_health"/>
+            <field name="is_published">True</field>
+            <field name="website_description" type="html">
+                <p>Healthcare Data Engineer — apply via BlueYellow marketplace.</p>
+            </field>
+        </record>
+        <record id="project_job_atlas_mfg" model="project.project">
+            <field name="name">MES Integration Specialist Engagement</field>
+            <field name="company_id" ref="blueyellow_client.company_atlas_mfg"/>
+            <field name="privacy_visibility">portal</field>
+        </record>
+        <record id="job_atlas_mfg" model="hr.job">
+            <field name="name">MES Integration Specialist</field>
+            <field name="company_id" ref="blueyellow_client.company_atlas_mfg"/>
+            <field name="project_id" ref="project_job_atlas_mfg"/>
+            <field name="user_id" ref="blueyellow_client.user_manager_atlas_mfg"/>
+            <field name="is_published">True</field>
+            <field name="website_description" type="html">
+                <p>MES Integration Specialist — apply via BlueYellow marketplace.</p>
+            </field>
+        </record>
+        <record id="project_job_coastal_media" model="project.project">
+            <field name="name">Streaming Platform DevOps Engagement</field>
+            <field name="company_id" ref="blueyellow_client.company_coastal_media"/>
+            <field name="privacy_visibility">portal</field>
+        </record>
+        <record id="job_coastal_media" model="hr.job">
+            <field name="name">Streaming Platform DevOps</field>
+            <field name="company_id" ref="blueyellow_client.company_coastal_media"/>
+            <field name="project_id" ref="project_job_coastal_media"/>
+            <field name="user_id" ref="blueyellow_client.user_manager_coastal_media"/>
+            <field name="is_published">True</field>
+            <field name="website_description" type="html">
+                <p>Streaming Platform DevOps — apply via BlueYellow marketplace.</p>
+            </field>
+        </record>
+        <record id="project_job_ironclad_cyber" model="project.project">
+            <field name="name">SOC Automation Engineer Engagement</field>
+            <field name="company_id" ref="blueyellow_client.company_ironclad_cyber"/>
+            <field name="privacy_visibility">portal</field>
+        </record>
+        <record id="job_ironclad_cyber" model="hr.job">
+            <field name="name">SOC Automation Engineer</field>
+            <field name="company_id" ref="blueyellow_client.company_ironclad_cyber"/>
+            <field name="project_id" ref="project_job_ironclad_cyber"/>
+            <field name="user_id" ref="blueyellow_client.user_manager_ironclad_cyber"/>
+            <field name="is_published">True</field>
+            <field name="website_description" type="html">
+                <p>SOC Automation Engineer — apply via BlueYellow marketplace.</p>
+            </field>
+        </record>
+        <record id="project_job_lumen_edtech" model="project.project">
+            <field name="name">Learning Experience Designer Engagement</field>
+            <field name="company_id" ref="blueyellow_client.company_lumen_edtech"/>
+            <field name="privacy_visibility">portal</field>
+        </record>
+        <record id="job_lumen_edtech" model="hr.job">
+            <field name="name">Learning Experience Designer</field>
+            <field name="company_id" ref="blueyellow_client.company_lumen_edtech"/>
+            <field name="project_id" ref="project_job_lumen_edtech"/>
+            <field name="user_id" ref="blueyellow_client.user_manager_lumen_edtech"/>
+            <field name="is_published">True</field>
+            <field name="website_description" type="html">
+                <p>Learning Experience Designer — apply via BlueYellow marketplace.</p>
+            </field>
+        </record>
+        <record id="project_job_prairie_agtech" model="project.project">
+            <field name="name">Precision Agriculture Developer Engagement</field>
+            <field name="company_id" ref="blueyellow_client.company_prairie_agtech"/>
+            <field name="privacy_visibility">portal</field>
+        </record>
+        <record id="job_prairie_agtech" model="hr.job">
+            <field name="name">Precision Agriculture Developer</field>
+            <field name="company_id" ref="blueyellow_client.company_prairie_agtech"/>
+            <field name="project_id" ref="project_job_prairie_agtech"/>
+            <field name="user_id" ref="blueyellow_client.user_manager_prairie_agtech"/>
+            <field name="is_published">True</field>
+            <field name="website_description" type="html">
+                <p>Precision Agriculture Developer — apply via BlueYellow marketplace.</p>
+            </field>
+        </record>
+        <record id="project_job_quantum_retail" model="project.project">
+            <field name="name">E-commerce Personalization Lead Engagement</field>
+            <field name="company_id" ref="blueyellow_client.company_quantum_retail"/>
+            <field name="privacy_visibility">portal</field>
+        </record>
+        <record id="job_quantum_retail" model="hr.job">
+            <field name="name">E-commerce Personalization Lead</field>
+            <field name="company_id" ref="blueyellow_client.company_quantum_retail"/>
+            <field name="project_id" ref="project_job_quantum_retail"/>
+            <field name="user_id" ref="blueyellow_client.user_manager_quantum_retail"/>
+            <field name="is_published">True</field>
+            <field name="website_description" type="html">
+                <p>E-commerce Personalization Lead — apply via BlueYellow marketplace.</p>
+            </field>
+        </record>
+        <record id="project_job_riverside_muni" model="project.project">
+            <field name="name">Citizen Portal Full-Stack Developer Engagement</field>
+            <field name="company_id" ref="blueyellow_client.company_riverside_muni"/>
+            <field name="privacy_visibility">portal</field>
+        </record>
+        <record id="job_riverside_muni" model="hr.job">
+            <field name="name">Citizen Portal Full-Stack Developer</field>
+            <field name="company_id" ref="blueyellow_client.company_riverside_muni"/>
+            <field name="project_id" ref="project_job_riverside_muni"/>
+            <field name="user_id" ref="blueyellow_client.user_manager_riverside_muni"/>
+            <field name="is_published">True</field>
+            <field name="website_description" type="html">
+                <p>Citizen Portal Full-Stack Developer — apply via BlueYellow marketplace.</p>
+            </field>
+        </record>
+        <record id="project_job_stellar_aero" model="project.project">
+            <field name="name">Avionics Software Tester Engagement</field>
+            <field name="company_id" ref="blueyellow_client.company_stellar_aero"/>
+            <field name="privacy_visibility">portal</field>
+        </record>
+        <record id="job_stellar_aero" model="hr.job">
+            <field name="name">Avionics Software Tester</field>
+            <field name="company_id" ref="blueyellow_client.company_stellar_aero"/>
+            <field name="project_id" ref="project_job_stellar_aero"/>
+            <field name="user_id" ref="blueyellow_client.user_manager_stellar_aero"/>
+            <field name="is_published">True</field>
+            <field name="website_description" type="html">
+                <p>Avionics Software Tester — apply via BlueYellow marketplace.</p>
+            </field>
+        </record>
+        <record id="project_job_timberline" model="project.project">
+            <field name="name">Commercial Estimator (ERP) Engagement</field>
+            <field name="company_id" ref="blueyellow_client.company_timberline"/>
+            <field name="privacy_visibility">portal</field>
+        </record>
+        <record id="job_timberline" model="hr.job">
+            <field name="name">Commercial Estimator (ERP)</field>
+            <field name="company_id" ref="blueyellow_client.company_timberline"/>
+            <field name="project_id" ref="project_job_timberline"/>
+            <field name="user_id" ref="blueyellow_client.user_manager_timberline"/>
+            <field name="is_published">True</field>
+            <field name="website_description" type="html">
+                <p>Commercial Estimator (ERP) — apply via BlueYellow marketplace.</p>
+            </field>
+        </record>
+        <record id="project_job_client_co_2" model="project.project">
+            <field name="name">DevSecOps Engineer Engagement</field>
+            <field name="company_id" ref="blueyellow_client.company_client_co"/>
+            <field name="privacy_visibility">portal</field>
+        </record>
+        <record id="job_client_co_2" model="hr.job">
+            <field name="name">DevSecOps Engineer</field>
+            <field name="company_id" ref="blueyellow_client.company_client_co"/>
+            <field name="project_id" ref="project_job_client_co_2"/>
+            <field name="user_id" ref="blueyellow_client.user_showcase_client_manager"/>
+            <field name="is_published">True</field>
+            <field name="website_description" type="html">
+                <p>DevSecOps Engineer — apply via BlueYellow marketplace.</p>
+            </field>
+        </record>
+        <record id="project_job_northstar_2" model="project.project">
+            <field name="name">Merchandising Analytics Consultant Engagement</field>
+            <field name="company_id" ref="blueyellow_client.company_northstar"/>
+            <field name="privacy_visibility">portal</field>
+        </record>
+        <record id="job_northstar_2" model="hr.job">
+            <field name="name">Merchandising Analytics Consultant</field>
+            <field name="company_id" ref="blueyellow_client.company_northstar"/>
+            <field name="project_id" ref="project_job_northstar_2"/>
+            <field name="user_id" ref="blueyellow_client.user_northstar_manager"/>
+            <field name="is_published">True</field>
+            <field name="website_description" type="html">
+                <p>Merchandising Analytics Consultant — apply via BlueYellow marketplace.</p>
+            </field>
+        </record>
+        <record id="project_job_summit_2" model="project.project">
+            <field name="name">Risk &amp; Compliance Analyst Engagement</field>
+            <field name="company_id" ref="blueyellow_client.company_summit_fintech"/>
+            <field name="privacy_visibility">portal</field>
+        </record>
+        <record id="job_summit_2" model="hr.job">
+            <field name="name">Risk &amp; Compliance Analyst</field>
+            <field name="company_id" ref="blueyellow_client.company_summit_fintech"/>
+            <field name="project_id" ref="project_job_summit_2"/>
+            <field name="user_id" ref="blueyellow_client.user_manager_summit_fintech"/>
+            <field name="is_published">True</field>
+            <field name="website_description" type="html">
+                <p>Risk &amp; Compliance Analyst — apply via BlueYellow marketplace.</p>
+            </field>
+        </record>
+    </data>
+</flectra>

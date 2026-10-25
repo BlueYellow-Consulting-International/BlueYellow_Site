@@ -15,6 +15,7 @@
     ],
     "demo": [
         "demo/hr_job_demo.xml",
+        "demo/hr_jobs_marketplace_demo.xml",
     ],
     "installable": True,
     "application": False,
