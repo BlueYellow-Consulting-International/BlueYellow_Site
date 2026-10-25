@@ -23,7 +23,9 @@
     "demo": [
         "demo/res_users_demo.xml",
         "demo/res_users_showcase_demo.xml",
+        "demo/res_users_consultants_marketplace_demo.xml",
         "demo/hr_employee_demo.xml",
+        "demo/hr_employees_marketplace_demo.xml",
     ],
     "installable": True,
     "application": False,

@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <data noupdate="1">
+        <record id="partner_consultant_c03" model="res.partner">
+            <field name="name">Sam Okonkwo</field>
+            <field name="email">consultant.sam@blueyellow.demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_published">True</field>
+        </record>
+        <record id="user_consultant_c03" model="res.users" context="{'no_reset_password': True}">
+            <field name="partner_id" ref="partner_consultant_c03"/>
+            <field name="login">consultant.sam@blueyellow.demo</field>
+            <field name="password">demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="company_ids" eval="[(6, 0, [ref('base.main_company')])]"/>
+            <field name="groups_id" eval="[Command.set([ref('blueyellow_consultant.group_consultant')])]"/>
+        </record>
+        <record id="partner_consultant_c04" model="res.partner">
+            <field name="name">Priya Sharma</field>
+            <field name="email">consultant.priya@blueyellow.demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_published">True</field>
+        </record>
+        <record id="user_consultant_c04" model="res.users" context="{'no_reset_password': True}">
+            <field name="partner_id" ref="partner_consultant_c04"/>
+            <field name="login">consultant.priya@blueyellow.demo</field>
+            <field name="password">demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="company_ids" eval="[(6, 0, [ref('base.main_company')])]"/>
+            <field name="groups_id" eval="[Command.set([ref('blueyellow_consultant.group_consultant')])]"/>
+        </record>
+        <record id="partner_consultant_c05" model="res.partner">
+            <field name="name">Marcus Chen</field>
+            <field name="email">consultant.marcus@blueyellow.demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_published">True</field>
+        </record>
+        <record id="user_consultant_c05" model="res.users" context="{'no_reset_password': True}">
+            <field name="partner_id" ref="partner_consultant_c05"/>
+            <field name="login">consultant.marcus@blueyellow.demo</field>
+            <field name="password">demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="company_ids" eval="[(6, 0, [ref('base.main_company')])]"/>
+            <field name="groups_id" eval="[Command.set([ref('blueyellow_consultant.group_consultant')])]"/>
+        </record>
+        <record id="partner_consultant_c06" model="res.partner">
+            <field name="name">Elena Vasquez</field>
+            <field name="email">consultant.elena@blueyellow.demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_published">True</field>
+        </record>
+        <record id="user_consultant_c06" model="res.users" context="{'no_reset_password': True}">
+            <field name="partner_id" ref="partner_consultant_c06"/>
+            <field name="login">consultant.elena@blueyellow.demo</field>
+            <field name="password">demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="company_ids" eval="[(6, 0, [ref('base.main_company')])]"/>
+            <field name="groups_id" eval="[Command.set([ref('blueyellow_consultant.group_consultant')])]"/>
+        </record>
+        <record id="partner_consultant_c07" model="res.partner">
+            <field name="name">Noah Fischer</field>
+            <field name="email">consultant.noah@blueyellow.demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_published">True</field>
+        </record>
+        <record id="user_consultant_c07" model="res.users" context="{'no_reset_password': True}">
+            <field name="partner_id" ref="partner_consultant_c07"/>
+            <field name="login">consultant.noah@blueyellow.demo</field>
+            <field name="password">demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="company_ids" eval="[(6, 0, [ref('base.main_company')])]"/>
+            <field name="groups_id" eval="[Command.set([ref('blueyellow_consultant.group_consultant')])]"/>
+        </record>
+        <record id="partner_consultant_c08" model="res.partner">
+            <field name="name">Aisha Patel</field>
+            <field name="email">consultant.aisha@blueyellow.demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_published">True</field>
+        </record>
+        <record id="user_consultant_c08" model="res.users" context="{'no_reset_password': True}">
+            <field name="partner_id" ref="partner_consultant_c08"/>
+            <field name="login">consultant.aisha@blueyellow.demo</field>
+            <field name="password">demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="company_ids" eval="[(6, 0, [ref('base.main_company')])]"/>
+            <field name="groups_id" eval="[Command.set([ref('blueyellow_consultant.group_consultant')])]"/>
+        </record>
+        <record id="partner_consultant_c09" model="res.partner">
+            <field name="name">Diego Morales</field>
+            <field name="email">consultant.diego@blueyellow.demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_published">True</field>
+        </record>
+        <record id="user_consultant_c09" model="res.users" context="{'no_reset_password': True}">
+            <field name="partner_id" ref="partner_consultant_c09"/>
+            <field name="login">consultant.diego@blueyellow.demo</field>
+            <field name="password">demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="company_ids" eval="[(6, 0, [ref('base.main_company')])]"/>
+            <field name="groups_id" eval="[Command.set([ref('blueyellow_consultant.group_consultant')])]"/>
+        </record>
+        <record id="partner_consultant_c10" model="res.partner">
+            <field name="name">Hannah Kim</field>
+            <field name="email">consultant.hannah@blueyellow.demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_published">True</field>
+        </record>
+        <record id="user_consultant_c10" model="res.users" context="{'no_reset_password': True}">
+            <field name="partner_id" ref="partner_consultant_c10"/>
+            <field name="login">consultant.hannah@blueyellow.demo</field>
+            <field name="password">demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="company_ids" eval="[(6, 0, [ref('base.main_company')])]"/>
+            <field name="groups_id" eval="[Command.set([ref('blueyellow_consultant.group_consultant')])]"/>
+        </record>
+        <record id="partner_consultant_c11" model="res.partner">
+            <field name="name">Oliver Grant</field>
+            <field name="email">consultant.oliver@blueyellow.demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_published">True</field>
+        </record>
+        <record id="user_consultant_c11" model="res.users" context="{'no_reset_password': True}">
+            <field name="partner_id" ref="partner_consultant_c11"/>
+            <field name="login">consultant.oliver@blueyellow.demo</field>
+            <field name="password">demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="company_ids" eval="[(6, 0, [ref('base.main_company')])]"/>
+            <field name="groups_id" eval="[Command.set([ref('blueyellow_consultant.group_consultant')])]"/>
+        </record>
+        <record id="partner_consultant_c12" model="res.partner">
+            <field name="name">Zoe Nakamura</field>
+            <field name="email">consultant.zoe@blueyellow.demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_published">True</field>
+        </record>
+        <record id="user_consultant_c12" model="res.users" context="{'no_reset_password': True}">
+            <field name="partner_id" ref="partner_consultant_c12"/>
+            <field name="login">consultant.zoe@blueyellow.demo</field>
+            <field name="password">demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="company_ids" eval="[(6, 0, [ref('base.main_company')])]"/>
+            <field name="groups_id" eval="[Command.set([ref('blueyellow_consultant.group_consultant')])]"/>
+        </record>
+        <record id="partner_consultant_c13" model="res.partner">
+            <field name="name">Ryan O'Brien</field>
+            <field name="email">consultant.ryan@blueyellow.demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_published">True</field>
+        </record>
+        <record id="user_consultant_c13" model="res.users" context="{'no_reset_password': True}">
+            <field name="partner_id" ref="partner_consultant_c13"/>
+            <field name="login">consultant.ryan@blueyellow.demo</field>
+            <field name="password">demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="company_ids" eval="[(6, 0, [ref('base.main_company')])]"/>
+            <field name="groups_id" eval="[Command.set([ref('blueyellow_consultant.group_consultant')])]"/>
+        </record>
+        <record id="partner_consultant_c14" model="res.partner">
+            <field name="name">Fatima Al-Hassan</field>
+            <field name="email">consultant.fatima@blueyellow.demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_published">True</field>
+        </record>
+        <record id="user_consultant_c14" model="res.users" context="{'no_reset_password': True}">
+            <field name="partner_id" ref="partner_consultant_c14"/>
+            <field name="login">consultant.fatima@blueyellow.demo</field>
+            <field name="password">demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="company_ids" eval="[(6, 0, [ref('base.main_company')])]"/>
+            <field name="groups_id" eval="[Command.set([ref('blueyellow_consultant.group_consultant')])]"/>
+        </record>
+        <record id="partner_consultant_c15" model="res.partner">
+            <field name="name">Chris Bergstrom</field>
+            <field name="email">consultant.chris@blueyellow.demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_published">True</field>
+        </record>
+        <record id="user_consultant_c15" model="res.users" context="{'no_reset_password': True}">
+            <field name="partner_id" ref="partner_consultant_c15"/>
+            <field name="login">consultant.chris@blueyellow.demo</field>
+            <field name="password">demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="company_ids" eval="[(6, 0, [ref('base.main_company')])]"/>
+            <field name="groups_id" eval="[Command.set([ref('blueyellow_consultant.group_consultant')])]"/>
+        </record>
+        <record id="partner_consultant_c16" model="res.partner">
+            <field name="name">Morgan Blake</field>
+            <field name="email">consultant.morgan@blueyellow.demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_published">True</field>
+        </record>
+        <record id="user_consultant_c16" model="res.users" context="{'no_reset_password': True}">
+            <field name="partner_id" ref="partner_consultant_c16"/>
+            <field name="login">consultant.morgan@blueyellow.demo</field>
+            <field name="password">demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="company_ids" eval="[(6, 0, [ref('base.main_company')])]"/>
+            <field name="groups_id" eval="[Command.set([ref('blueyellow_consultant.group_consultant')])]"/>
+        </record>
+        <record id="partner_consultant_c17" model="res.partner">
+            <field name="name">Yuki Tanaka</field>
+            <field name="email">consultant.yuki@blueyellow.demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_published">True</field>
+        </record>
+        <record id="user_consultant_c17" model="res.users" context="{'no_reset_password': True}">
+            <field name="partner_id" ref="partner_consultant_c17"/>
+            <field name="login">consultant.yuki@blueyellow.demo</field>
+            <field name="password">demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="company_ids" eval="[(6, 0, [ref('base.main_company')])]"/>
+            <field name="groups_id" eval="[Command.set([ref('blueyellow_consultant.group_consultant')])]"/>
+        </record>
+        <record id="partner_consultant_c18" model="res.partner">
+            <field name="name">Isabelle Dubois</field>
+            <field name="email">consultant.isabelle@blueyellow.demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_published">True</field>
+        </record>
+        <record id="user_consultant_c18" model="res.users" context="{'no_reset_password': True}">
+            <field name="partner_id" ref="partner_consultant_c18"/>
+            <field name="login">consultant.isabelle@blueyellow.demo</field>
+            <field name="password">demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="company_ids" eval="[(6, 0, [ref('base.main_company')])]"/>
+            <field name="groups_id" eval="[Command.set([ref('blueyellow_consultant.group_consultant')])]"/>
+        </record>
+        <record id="partner_consultant_c19" model="res.partner">
+            <field name="name">Kwame Asante</field>
+            <field name="email">consultant.kwame@blueyellow.demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_published">True</field>
+        </record>
+        <record id="user_consultant_c19" model="res.users" context="{'no_reset_password': True}">
+            <field name="partner_id" ref="partner_consultant_c19"/>
+            <field name="login">consultant.kwame@blueyellow.demo</field>
+            <field name="password">demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="company_ids" eval="[(6, 0, [ref('base.main_company')])]"/>
+            <field name="groups_id" eval="[Command.set([ref('blueyellow_consultant.group_consultant')])]"/>
+        </record>
+        <record id="partner_consultant_c20" model="res.partner">
+            <field name="name">Lily Nguyen</field>
+            <field name="email">consultant.lily@blueyellow.demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_published">True</field>
+        </record>
+        <record id="user_consultant_c20" model="res.users" context="{'no_reset_password': True}">
+            <field name="partner_id" ref="partner_consultant_c20"/>
+            <field name="login">consultant.lily@blueyellow.demo</field>
+            <field name="password">demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="company_ids" eval="[(6, 0, [ref('base.main_company')])]"/>
+            <field name="groups_id" eval="[Command.set([ref('blueyellow_consultant.group_consultant')])]"/>
+        </record>
+        <record id="partner_consultant_c21" model="res.partner">
+            <field name="name">Tomislav Petrov</field>
+            <field name="email">consultant.tomislav@blueyellow.demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_published">True</field>
+        </record>
+        <record id="user_consultant_c21" model="res.users" context="{'no_reset_password': True}">
+            <field name="partner_id" ref="partner_consultant_c21"/>
+            <field name="login">consultant.tomislav@blueyellow.demo</field>
+            <field name="password">demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="company_ids" eval="[(6, 0, [ref('base.main_company')])]"/>
+            <field name="groups_id" eval="[Command.set([ref('blueyellow_consultant.group_consultant')])]"/>
+        </record>
+        <record id="partner_consultant_c22" model="res.partner">
+            <field name="name">Rachel Stein</field>
+            <field name="email">consultant.rachel@blueyellow.demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_published">True</field>
+        </record>
+        <record id="user_consultant_c22" model="res.users" context="{'no_reset_password': True}">
+            <field name="partner_id" ref="partner_consultant_c22"/>
+            <field name="login">consultant.rachel@blueyellow.demo</field>
+            <field name="password">demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="company_ids" eval="[(6, 0, [ref('base.main_company')])]"/>
+            <field name="groups_id" eval="[Command.set([ref('blueyellow_consultant.group_consultant')])]"/>
+        </record>
+        <record id="partner_consultant_c23" model="res.partner">
+            <field name="name">Benicio Alvarez</field>
+            <field name="email">consultant.benicio@blueyellow.demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_published">True</field>
+        </record>
+        <record id="user_consultant_c23" model="res.users" context="{'no_reset_password': True}">
+            <field name="partner_id" ref="partner_consultant_c23"/>
+            <field name="login">consultant.benicio@blueyellow.demo</field>
+            <field name="password">demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="company_ids" eval="[(6, 0, [ref('base.main_company')])]"/>
+            <field name="groups_id" eval="[Command.set([ref('blueyellow_consultant.group_consultant')])]"/>
+        </record>
+        <record id="partner_consultant_c24" model="res.partner">
+            <field name="name">Sienna Walsh</field>
+            <field name="email">consultant.sienna@blueyellow.demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_published">True</field>
+        </record>
+        <record id="user_consultant_c24" model="res.users" context="{'no_reset_password': True}">
+            <field name="partner_id" ref="partner_consultant_c24"/>
+            <field name="login">consultant.sienna@blueyellow.demo</field>
+            <field name="password">demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="company_ids" eval="[(6, 0, [ref('base.main_company')])]"/>
+            <field name="groups_id" eval="[Command.set([ref('blueyellow_consultant.group_consultant')])]"/>
+        </record>
+    </data>
+</flectra>

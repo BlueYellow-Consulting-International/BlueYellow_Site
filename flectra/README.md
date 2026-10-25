@@ -219,15 +219,29 @@ Platform addon design and security notes: [docs/specs/blueyellow-platform-module
 
 On a **fresh** bootstrap, Flectra loads demo data (including BlueYellow marketplace users). Demo XML does **not** load on normal `-u` upgrades of an existing database.
 
-| Login | Password | Role | Company |
-|-------|----------|------|---------|
-| `client.manager@clientco.example.com` | `demo` | Client | Client Co. |
-| `consultant@blueyellow.example.com` | `demo` | Consultant | BlueYellow (platform) |
+**Shared password for marketplace showcase users:** `demo`
+
+| Area | Fresh install includes |
+|------|------------------------|
+| **Client orgs** | **14** child companies (Client Co., Northstar Retail, Harbor Logistics, Summit FinTech, Verde Health, Atlas Manufacturing, Coastal Media, Ironclad Cyber, Lumen EdTech, Prairie AgTech, Quantum Retail, Riverside Municipal, Stellar Aerospace, Timberline Construction) |
+| **Published jobs** | **16+** roles on `/jobs` (legacy Senior Python + marketplace postings per company) |
+| **Consultants** | **24** freelancers at `consultant.<name>@blueyellow.demo` (plus legacy `consultant@blueyellow.example.com`) |
+| **Platform ops** | `ops@blueyellow.demo`, `billing@blueyellow.demo` (showcase XML) |
+
+| Login (examples) | Password | Role |
+|------------------|----------|------|
+| `client.manager@clientco.demo` | `demo` | Client manager — Client Co. |
+| `manager@harborlogistics.demo` | `demo` | Client manager — Harbor Logistics |
+| `consultant.alex@blueyellow.demo` | `demo` | Consultant |
+| `consultant.sam@blueyellow.demo` | `demo` | Consultant |
+| `client.manager@clientco.example.com` | `demo` | Legacy client demo |
+| `consultant@blueyellow.example.com` | `demo` | Legacy consultant demo |
 
 Also seeded on fresh install:
 
 - **Client Co.** — child company owned by the Client Manager (`blueyellow_owner_id` set).
 - **Senior Python Consultant** job on Client Co., linked to an engagement project and published for `/jobs`.
+- **Job pool** app tile for consultants (published jobs across all client orgs).
 
 To test demo data locally, reset runtime state and bootstrap again:
 

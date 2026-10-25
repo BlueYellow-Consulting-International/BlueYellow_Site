@@ -7,6 +7,9 @@
 .env.local
 .env.*.local
 
+# Local one-off seed scripts (not for git)
+.seed_*.py
+
 # Python/editor noise
 __pycache__/
 *.py[cod]
