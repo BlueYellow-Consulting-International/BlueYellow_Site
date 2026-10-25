@@ -7,7 +7,7 @@
             <field name="company_id" ref="base.main_company"/>
             <field name="work_contact_id" ref="partner_consultant_c03"/>
             <field name="work_email">consultant.sam@blueyellow.demo</field>
-            <field name="job_title">Cloud Architect</field>
+            <field name="job_title">AWS cost trims &amp; Terraform · part-time</field>
         </record>
         <record id="employee_consultant_c04" model="hr.employee">
             <field name="name">Priya Sharma</field>
@@ -15,7 +15,7 @@
             <field name="company_id" ref="base.main_company"/>
             <field name="work_contact_id" ref="partner_consultant_c04"/>
             <field name="work_email">consultant.priya@blueyellow.demo</field>
-            <field name="job_title">Data Engineer</field>
+            <field name="job_title">Data pipelines · Postgres, dbt, honest dashboards</field>
         </record>
         <record id="employee_consultant_c05" model="hr.employee">
             <field name="name">Marcus Chen</field>
@@ -23,7 +23,7 @@
             <field name="company_id" ref="base.main_company"/>
             <field name="work_contact_id" ref="partner_consultant_c05"/>
             <field name="work_email">consultant.marcus@blueyellow.demo</field>
-            <field name="job_title">DevOps Engineer</field>
+            <field name="job_title">CI/CD &amp; Docker · get your deploys boring again</field>
         </record>
         <record id="employee_consultant_c06" model="hr.employee">
             <field name="name">Elena Vasquez</field>
@@ -31,7 +31,7 @@
             <field name="company_id" ref="base.main_company"/>
             <field name="work_contact_id" ref="partner_consultant_c06"/>
             <field name="work_email">consultant.elena@blueyellow.demo</field>
-            <field name="job_title">UX Research Lead</field>
+            <field name="job_title">UX research + wireframes · B2B SaaS</field>
         </record>
         <record id="employee_consultant_c07" model="hr.employee">
             <field name="name">Noah Fischer</field>
@@ -39,7 +39,7 @@
             <field name="company_id" ref="base.main_company"/>
             <field name="work_contact_id" ref="partner_consultant_c07"/>
             <field name="work_email">consultant.noah@blueyellow.demo</field>
-            <field name="job_title">Security Consultant</field>
+            <field name="job_title">App sec reviews · sensible fixes, no fear-mongering</field>
         </record>
         <record id="employee_consultant_c08" model="hr.employee">
             <field name="name">Aisha Patel</field>
@@ -47,7 +47,7 @@
             <field name="company_id" ref="base.main_company"/>
             <field name="work_contact_id" ref="partner_consultant_c08"/>
             <field name="work_email">consultant.aisha@blueyellow.demo</field>
-            <field name="job_title">Product Manager (Contract)</field>
+            <field name="job_title">Fractional PM · roadmaps clients actually read</field>
         </record>
         <record id="employee_consultant_c09" model="hr.employee">
             <field name="name">Diego Morales</field>
@@ -55,7 +55,7 @@
             <field name="company_id" ref="base.main_company"/>
             <field name="work_contact_id" ref="partner_consultant_c09"/>
             <field name="work_email">consultant.diego@blueyellow.demo</field>
-            <field name="job_title">Mobile Developer</field>
+            <field name="job_title">React Native · ship the app store update</field>
         </record>
         <record id="employee_consultant_c10" model="hr.employee">
             <field name="name">Hannah Kim</field>
@@ -63,7 +63,7 @@
             <field name="company_id" ref="base.main_company"/>
             <field name="work_contact_id" ref="partner_consultant_c10"/>
             <field name="work_email">consultant.hannah@blueyellow.demo</field>
-            <field name="job_title">QA Automation Engineer</field>
+            <field name="job_title">Playwright/Cypress · stop manual regression</field>
         </record>
         <record id="employee_consultant_c11" model="hr.employee">
             <field name="name">Oliver Grant</field>
@@ -71,7 +71,7 @@
             <field name="company_id" ref="base.main_company"/>
             <field name="work_contact_id" ref="partner_consultant_c11"/>
             <field name="work_email">consultant.oliver@blueyellow.demo</field>
-            <field name="job_title">Salesforce Developer</field>
+            <field name="job_title">Salesforce admin · nonprofits &amp; small sales teams</field>
         </record>
         <record id="employee_consultant_c12" model="hr.employee">
             <field name="name">Zoe Nakamura</field>
@@ -79,7 +79,7 @@
             <field name="company_id" ref="base.main_company"/>
             <field name="work_contact_id" ref="partner_consultant_c12"/>
             <field name="work_email">consultant.zoe@blueyellow.demo</field>
-            <field name="job_title">Technical Writer</field>
+            <field name="job_title">Docs &amp; help centers · developer tools a specialty</field>
         </record>
         <record id="employee_consultant_c13" model="hr.employee">
             <field name="name">Ryan O'Brien</field>
@@ -87,7 +87,7 @@
             <field name="company_id" ref="base.main_company"/>
             <field name="work_contact_id" ref="partner_consultant_c13"/>
             <field name="work_email">consultant.ryan@blueyellow.demo</field>
-            <field name="job_title">ERP Functional Consultant</field>
+            <field name="job_title">NetSuite / ERP tweaks · manufacturing background</field>
         </record>
         <record id="employee_consultant_c14" model="hr.employee">
             <field name="name">Fatima Al-Hassan</field>
@@ -95,7 +95,7 @@
             <field name="company_id" ref="base.main_company"/>
             <field name="work_contact_id" ref="partner_consultant_c14"/>
             <field name="work_email">consultant.fatima@blueyellow.demo</field>
-            <field name="job_title">ML Engineer</field>
+            <field name="job_title">ML prototypes · NLP &amp; classification, not hype</field>
         </record>
         <record id="employee_consultant_c15" model="hr.employee">
             <field name="name">Chris Bergstrom</field>
@@ -103,7 +103,7 @@
             <field name="company_id" ref="base.main_company"/>
             <field name="work_contact_id" ref="partner_consultant_c15"/>
             <field name="work_email">consultant.chris@blueyellow.demo</field>
-            <field name="job_title">Site Reliability Engineer</field>
+            <field name="job_title">On-call setup · Grafana, paging that wakes the right person</field>
         </record>
         <record id="employee_consultant_c16" model="hr.employee">
             <field name="name">Morgan Blake</field>
@@ -111,7 +111,7 @@
             <field name="company_id" ref="base.main_company"/>
             <field name="work_contact_id" ref="partner_consultant_c16"/>
             <field name="work_email">consultant.morgan@blueyellow.demo</field>
-            <field name="job_title">Scrum Master</field>
+            <field name="job_title">Scrum-ish coach · remote teams, no certificate theater</field>
         </record>
         <record id="employee_consultant_c17" model="hr.employee">
             <field name="name">Yuki Tanaka</field>
@@ -119,7 +119,7 @@
             <field name="company_id" ref="base.main_company"/>
             <field name="work_contact_id" ref="partner_consultant_c17"/>
             <field name="work_email">consultant.yuki@blueyellow.demo</field>
-            <field name="job_title">iOS Engineer</field>
+            <field name="job_title">SwiftUI · polish an existing iOS app</field>
         </record>
         <record id="employee_consultant_c18" model="hr.employee">
             <field name="name">Isabelle Dubois</field>
@@ -127,7 +127,7 @@
             <field name="company_id" ref="base.main_company"/>
             <field name="work_contact_id" ref="partner_consultant_c18"/>
             <field name="work_email">consultant.isabelle@blueyellow.demo</field>
-            <field name="job_title">Change Management Lead</field>
+            <field name="job_title">Change management · clinics &amp; public sector</field>
         </record>
         <record id="employee_consultant_c19" model="hr.employee">
             <field name="name">Kwame Asante</field>
@@ -135,7 +135,7 @@
             <field name="company_id" ref="base.main_company"/>
             <field name="work_contact_id" ref="partner_consultant_c19"/>
             <field name="work_email">consultant.kwame@blueyellow.demo</field>
-            <field name="job_title">Business Intelligence Developer</field>
+            <field name="job_title">Power BI / Looker · finance teams</field>
         </record>
         <record id="employee_consultant_c20" model="hr.employee">
             <field name="name">Lily Nguyen</field>
@@ -143,7 +143,7 @@
             <field name="company_id" ref="base.main_company"/>
             <field name="work_contact_id" ref="partner_consultant_c20"/>
             <field name="work_email">consultant.lily@blueyellow.demo</field>
-            <field name="job_title">Frontend Engineer (React)</field>
+            <field name="job_title">React front-end · design systems &amp; accessibility</field>
         </record>
         <record id="employee_consultant_c21" model="hr.employee">
             <field name="name">Tomislav Petrov</field>
@@ -151,7 +151,7 @@
             <field name="company_id" ref="base.main_company"/>
             <field name="work_contact_id" ref="partner_consultant_c21"/>
             <field name="work_email">consultant.tomislav@blueyellow.demo</field>
-            <field name="job_title">Backend Engineer (Go)</field>
+            <field name="job_title">Go microservices · performance passes</field>
         </record>
         <record id="employee_consultant_c22" model="hr.employee">
             <field name="name">Rachel Stein</field>
@@ -159,7 +159,7 @@
             <field name="company_id" ref="base.main_company"/>
             <field name="work_contact_id" ref="partner_consultant_c22"/>
             <field name="work_email">consultant.rachel@blueyellow.demo</field>
-            <field name="job_title">HRIS Consultant</field>
+            <field name="job_title">HRIS cleanup · BambooHR, onboarding flows</field>
         </record>
         <record id="employee_consultant_c23" model="hr.employee">
             <field name="name">Benicio Alvarez</field>
@@ -167,7 +167,7 @@
             <field name="company_id" ref="base.main_company"/>
             <field name="work_contact_id" ref="partner_consultant_c23"/>
             <field name="work_email">consultant.benicio@blueyellow.demo</field>
-            <field name="job_title">Network Engineer</field>
+            <field name="job_title">Network &amp; Wi-Fi · small offices, honest site surveys</field>
         </record>
         <record id="employee_consultant_c24" model="hr.employee">
             <field name="name">Sienna Walsh</field>
@@ -175,7 +175,7 @@
             <field name="company_id" ref="base.main_company"/>
             <field name="work_contact_id" ref="partner_consultant_c24"/>
             <field name="work_email">consultant.sienna@blueyellow.demo</field>
-            <field name="job_title">Content Strategist</field>
+            <field name="job_title">Content strategy · blog + email for local brands</field>
         </record>
     </data>
 </flectra>

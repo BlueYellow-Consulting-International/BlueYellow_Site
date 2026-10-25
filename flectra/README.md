@@ -217,31 +217,31 @@ Platform addon design and security notes: [docs/specs/blueyellow-platform-module
 
 ### Demo logins (fresh database only)
 
-On a **fresh** bootstrap, Flectra loads demo data (including BlueYellow marketplace users). Demo XML does **not** load on normal `-u` upgrades of an existing database.
+On a **fresh** bootstrap, Flectra loads demo data styled like a freelance marketplace (everyday clients posting gigs, freelancers with headline-style profiles). Demo XML does **not** load on normal `-u` upgrades of an existing database.
 
 **Shared password for marketplace showcase users:** `demo`
 
 | Area | Fresh install includes |
 |------|------------------------|
-| **Client orgs** | **14** child companies (Client Co., Northstar Retail, Harbor Logistics, Summit FinTech, Verde Health, Atlas Manufacturing, Coastal Media, Ironclad Cyber, Lumen EdTech, Prairie AgTech, Quantum Retail, Riverside Municipal, Stellar Aerospace, Timberline Construction) |
-| **Published jobs** | **16+** roles on `/jobs` (legacy Senior Python + marketplace postings per company) |
-| **Consultants** | **24** freelancers at `consultant.<name>@blueyellow.demo` (plus legacy `consultant@blueyellow.example.com`) |
-| **Platform ops** | `ops@blueyellow.demo`, `billing@blueyellow.demo` (showcase XML) |
+| **Client orgs** | **14** shops and small teams (e.g. Brightline Apps, Northstar General Store, Harbor & Home Fulfillment, Summit Ledger, Verde Family Clinic, …) |
+| **Published gigs** | **16+** postings on `/jobs` — casual titles like “Fix our API before launch (Python, ~20 hrs/week)” |
+| **Consultants** | **24** freelancers at `consultant.<name>@blueyellow.demo` with Upwork-style employee headlines |
+| **Platform ops** | `ops@blueyellow.demo`, `billing@blueyellow.demo` |
 
 | Login (examples) | Password | Role |
 |------------------|----------|------|
-| `client.manager@clientco.demo` | `demo` | Client manager — Client Co. |
-| `manager@harborlogistics.demo` | `demo` | Client manager — Harbor Logistics |
-| `consultant.alex@blueyellow.demo` | `demo` | Consultant |
+| `client.manager@clientco.demo` | `demo` | Hiring manager — Brightline Apps |
+| `jess@harborhome.demo` | `demo` | Client — Harbor & Home Fulfillment |
+| `consultant.alex@blueyellow.demo` | `demo` | Consultant — use **Find work** home tile |
 | `consultant.sam@blueyellow.demo` | `demo` | Consultant |
 | `client.manager@clientco.example.com` | `demo` | Legacy client demo |
 | `consultant@blueyellow.example.com` | `demo` | Legacy consultant demo |
 
 Also seeded on fresh install:
 
-- **Client Co.** — child company owned by the Client Manager (`blueyellow_owner_id` set).
-- **Senior Python Consultant** job on Client Co., linked to an engagement project and published for `/jobs`.
-- **Job pool** app tile for consultants (published jobs across all client orgs).
+- **Brightline Apps** — child company owned by the hiring manager (`blueyellow_owner_id` set).
+- MVP Python gig on Brightline, linked to a contract project and published for `/jobs`.
+- **Find work** app tile for consultants (published gigs across all client orgs; **Submit proposal** on the website).
 
 To test demo data locally, reset runtime state and bootstrap again:
 

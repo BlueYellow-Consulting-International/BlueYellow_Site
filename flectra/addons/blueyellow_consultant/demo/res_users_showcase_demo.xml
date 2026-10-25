@@ -2,7 +2,7 @@
 <flectra>
     <data noupdate="1">
         <record id="partner_consultant_alex" model="res.partner">
-            <field name="name">Alex Consultant</field>
+            <field name="name">Alex Rivera</field>
             <field name="email">consultant.alex@blueyellow.demo</field>
             <field name="phone">+1 555-010-3100</field>
             <field name="company_id" ref="base.main_company"/>
@@ -19,7 +19,7 @@
         </record>
 
         <record id="partner_consultant_jordan" model="res.partner">
-            <field name="name">Jordan Consultant</field>
+            <field name="name">Jordan Lee</field>
             <field name="email">consultant.jordan@blueyellow.demo</field>
             <field name="phone">+1 555-010-3200</field>
             <field name="company_id" ref="base.main_company"/>

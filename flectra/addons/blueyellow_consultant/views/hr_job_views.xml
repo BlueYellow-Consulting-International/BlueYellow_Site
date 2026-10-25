@@ -9,7 +9,7 @@
                 <header>
                     <button name="action_blueyellow_open_job_website"
                             type="object"
-                            string="Apply on website"
+                            string="Submit proposal"
                             class="btn-primary"
                             groups="blueyellow_consultant.group_consultant"/>
                 </header>

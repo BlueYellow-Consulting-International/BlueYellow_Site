@@ -2,13 +2,13 @@
 <flectra>
     <data noupdate="1">
         <record id="partner_northstar" model="res.partner">
-            <field name="name">Northstar Retail</field>
-            <field name="email">ops@northstar.example.com</field>
+            <field name="name">Northstar General Store</field>
+            <field name="email">hello@northstargeneral.example.com</field>
             <field name="phone">+1 555-010-4000</field>
         </record>
 
         <record id="company_northstar" model="res.company">
-            <field name="name">Northstar Retail</field>
+            <field name="name">Northstar General Store</field>
             <field name="partner_id" ref="partner_northstar"/>
             <field name="parent_id" ref="base.main_company"/>
         </record>

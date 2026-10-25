@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <flectra>
     <record id="action_consultant_job_pool" model="ir.actions.act_window">
-        <field name="name">Job pool</field>
+        <field name="name">Find work</field>
         <field name="res_model">hr.job</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('is_published', '=', True), ('active', '=', True)]</field>
         <field name="context">{'blueyellow_job_pool': True, 'create': False, 'edit': False}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                No open positions are published on the website yet.
+                No open gigs posted yet.
             </p>
             <p>
-                Published jobs from all client organizations appear here. Open a job and use
-                <strong>Apply on website</strong> to submit an application.
+                Browse gigs from shops, founders, and small teams. Open a posting and use
+                <strong>Submit proposal</strong> to submit an application.
             </p>
         </field>
     </record>
 
     <menuitem id="menu_blueyellow_job_pool_root"
-              name="Job pool"
+              name="Find work"
               action="action_consultant_job_pool"
               groups="blueyellow_consultant.group_consultant"
               web_icon="hr_recruitment,static/description/icon.png"

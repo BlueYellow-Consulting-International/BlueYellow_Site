@@ -2,23 +2,23 @@
 <flectra>
     <data noupdate="1">
         <record id="partner_harbor_logistics" model="res.partner">
-            <field name="name">Harbor Logistics</field>
-            <field name="email">contact@harborlogistics.example.com</field>
+            <field name="name">Harbor &amp; Home Fulfillment</field>
+            <field name="email">hello@harborhome.example.com</field>
             <field name="phone">+1 555-020-1000</field>
         </record>
         <record id="company_harbor_logistics" model="res.company">
-            <field name="name">Harbor Logistics</field>
+            <field name="name">Harbor &amp; Home Fulfillment</field>
             <field name="partner_id" ref="partner_harbor_logistics"/>
             <field name="parent_id" ref="base.main_company"/>
         </record>
         <record id="partner_manager_harbor_logistics" model="res.partner">
-            <field name="name">Harbor Logistics Manager</field>
-            <field name="email">manager@harborlogistics.demo</field>
+            <field name="name">Jess Okonkwo</field>
+            <field name="email">jess@harborhome.demo</field>
             <field name="company_id" ref="company_harbor_logistics"/>
         </record>
         <record id="user_manager_harbor_logistics" model="res.users" context="{'no_reset_password': True}">
             <field name="partner_id" ref="partner_manager_harbor_logistics"/>
-            <field name="login">manager@harborlogistics.demo</field>
+            <field name="login">jess@harborhome.demo</field>
             <field name="password">demo</field>
             <field name="company_id" ref="company_harbor_logistics"/>
             <field name="company_ids" eval="[(6, 0, [ref('company_harbor_logistics')])]"/>
@@ -29,23 +29,23 @@
             <value eval="{'blueyellow_owner_id': ref('user_manager_harbor_logistics')}"/>
         </function>
         <record id="partner_summit_fintech" model="res.partner">
-            <field name="name">Summit FinTech</field>
-            <field name="email">hello@summitfintech.example.com</field>
+            <field name="name">Summit Ledger (solo founder)</field>
+            <field name="email">founder@summitledger.example.com</field>
             <field name="phone">+1 555-020-1100</field>
         </record>
         <record id="company_summit_fintech" model="res.company">
-            <field name="name">Summit FinTech</field>
+            <field name="name">Summit Ledger (solo founder)</field>
             <field name="partner_id" ref="partner_summit_fintech"/>
             <field name="parent_id" ref="base.main_company"/>
         </record>
         <record id="partner_manager_summit_fintech" model="res.partner">
-            <field name="name">Summit FinTech Manager</field>
-            <field name="email">manager@summitfintech.demo</field>
+            <field name="name">Marco Reyes</field>
+            <field name="email">marco@summitledger.demo</field>
             <field name="company_id" ref="company_summit_fintech"/>
         </record>
         <record id="user_manager_summit_fintech" model="res.users" context="{'no_reset_password': True}">
             <field name="partner_id" ref="partner_manager_summit_fintech"/>
-            <field name="login">manager@summitfintech.demo</field>
+            <field name="login">marco@summitledger.demo</field>
             <field name="password">demo</field>
             <field name="company_id" ref="company_summit_fintech"/>
             <field name="company_ids" eval="[(6, 0, [ref('company_summit_fintech')])]"/>
@@ -56,23 +56,23 @@
             <value eval="{'blueyellow_owner_id': ref('user_manager_summit_fintech')}"/>
         </function>
         <record id="partner_verde_health" model="res.partner">
-            <field name="name">Verde Health Analytics</field>
-            <field name="email">info@verdehealth.example.com</field>
+            <field name="name">Verde Family Clinic</field>
+            <field name="email">frontdesk@verdeclinic.example.com</field>
             <field name="phone">+1 555-020-1200</field>
         </record>
         <record id="company_verde_health" model="res.company">
-            <field name="name">Verde Health Analytics</field>
+            <field name="name">Verde Family Clinic</field>
             <field name="partner_id" ref="partner_verde_health"/>
             <field name="parent_id" ref="base.main_company"/>
         </record>
         <record id="partner_manager_verde_health" model="res.partner">
-            <field name="name">Verde Health Manager</field>
-            <field name="email">manager@verdehealth.demo</field>
+            <field name="name">Dr. Amy Park</field>
+            <field name="email">dr.park@verdeclinic.demo</field>
             <field name="company_id" ref="company_verde_health"/>
         </record>
         <record id="user_manager_verde_health" model="res.users" context="{'no_reset_password': True}">
             <field name="partner_id" ref="partner_manager_verde_health"/>
-            <field name="login">manager@verdehealth.demo</field>
+            <field name="login">dr.park@verdeclinic.demo</field>
             <field name="password">demo</field>
             <field name="company_id" ref="company_verde_health"/>
             <field name="company_ids" eval="[(6, 0, [ref('company_verde_health')])]"/>
@@ -83,23 +83,23 @@
             <value eval="{'blueyellow_owner_id': ref('user_manager_verde_health')}"/>
         </function>
         <record id="partner_atlas_mfg" model="res.partner">
-            <field name="name">Atlas Manufacturing</field>
-            <field name="email">ops@atlasmfg.example.com</field>
+            <field name="name">Atlas Benchworks</field>
+            <field name="email">shop@atlasbench.example.com</field>
             <field name="phone">+1 555-020-1300</field>
         </record>
         <record id="company_atlas_mfg" model="res.company">
-            <field name="name">Atlas Manufacturing</field>
+            <field name="name">Atlas Benchworks</field>
             <field name="partner_id" ref="partner_atlas_mfg"/>
             <field name="parent_id" ref="base.main_company"/>
         </record>
         <record id="partner_manager_atlas_mfg" model="res.partner">
-            <field name="name">Atlas Manufacturing Manager</field>
-            <field name="email">manager@atlasmfg.demo</field>
+            <field name="name">Todd Whitaker</field>
+            <field name="email">todd@atlasbench.demo</field>
             <field name="company_id" ref="company_atlas_mfg"/>
         </record>
         <record id="user_manager_atlas_mfg" model="res.users" context="{'no_reset_password': True}">
             <field name="partner_id" ref="partner_manager_atlas_mfg"/>
-            <field name="login">manager@atlasmfg.demo</field>
+            <field name="login">todd@atlasbench.demo</field>
             <field name="password">demo</field>
             <field name="company_id" ref="company_atlas_mfg"/>
             <field name="company_ids" eval="[(6, 0, [ref('company_atlas_mfg')])]"/>
@@ -110,23 +110,23 @@
             <value eval="{'blueyellow_owner_id': ref('user_manager_atlas_mfg')}"/>
         </function>
         <record id="partner_coastal_media" model="res.partner">
-            <field name="name">Coastal Media Group</field>
-            <field name="email">studio@coastalmedia.example.com</field>
+            <field name="name">Coastal Podcast Network</field>
+            <field name="email">bookings@coastalpod.example.com</field>
             <field name="phone">+1 555-020-1400</field>
         </record>
         <record id="company_coastal_media" model="res.company">
-            <field name="name">Coastal Media Group</field>
+            <field name="name">Coastal Podcast Network</field>
             <field name="partner_id" ref="partner_coastal_media"/>
             <field name="parent_id" ref="base.main_company"/>
         </record>
         <record id="partner_manager_coastal_media" model="res.partner">
-            <field name="name">Coastal Media Manager</field>
-            <field name="email">manager@coastalmedia.demo</field>
+            <field name="name">Nia Calderon</field>
+            <field name="email">nia@coastalpod.demo</field>
             <field name="company_id" ref="company_coastal_media"/>
         </record>
         <record id="user_manager_coastal_media" model="res.users" context="{'no_reset_password': True}">
             <field name="partner_id" ref="partner_manager_coastal_media"/>
-            <field name="login">manager@coastalmedia.demo</field>
+            <field name="login">nia@coastalpod.demo</field>
             <field name="password">demo</field>
             <field name="company_id" ref="company_coastal_media"/>
             <field name="company_ids" eval="[(6, 0, [ref('company_coastal_media')])]"/>
@@ -137,23 +137,23 @@
             <value eval="{'blueyellow_owner_id': ref('user_manager_coastal_media')}"/>
         </function>
         <record id="partner_ironclad_cyber" model="res.partner">
-            <field name="name">Ironclad Cybersecurity</field>
-            <field name="email">security@ironcladcyber.example.com</field>
+            <field name="name">Ironclad IT (2-person shop)</field>
+            <field name="email">help@ironcladit.example.com</field>
             <field name="phone">+1 555-020-1500</field>
         </record>
         <record id="company_ironclad_cyber" model="res.company">
-            <field name="name">Ironclad Cybersecurity</field>
+            <field name="name">Ironclad IT (2-person shop)</field>
             <field name="partner_id" ref="partner_ironclad_cyber"/>
             <field name="parent_id" ref="base.main_company"/>
         </record>
         <record id="partner_manager_ironclad_cyber" model="res.partner">
-            <field name="name">Ironclad Cyber Manager</field>
-            <field name="email">manager@ironcladcyber.demo</field>
+            <field name="name">Ren Kapoor</field>
+            <field name="email">ren@ironcladit.demo</field>
             <field name="company_id" ref="company_ironclad_cyber"/>
         </record>
         <record id="user_manager_ironclad_cyber" model="res.users" context="{'no_reset_password': True}">
             <field name="partner_id" ref="partner_manager_ironclad_cyber"/>
-            <field name="login">manager@ironcladcyber.demo</field>
+            <field name="login">ren@ironcladit.demo</field>
             <field name="password">demo</field>
             <field name="company_id" ref="company_ironclad_cyber"/>
             <field name="company_ids" eval="[(6, 0, [ref('company_ironclad_cyber')])]"/>
@@ -164,23 +164,23 @@
             <value eval="{'blueyellow_owner_id': ref('user_manager_ironclad_cyber')}"/>
         </function>
         <record id="partner_lumen_edtech" model="res.partner">
-            <field name="name">Lumen EdTech</field>
-            <field name="email">team@lumenedtech.example.com</field>
+            <field name="name">Lumen After-School</field>
+            <field name="email">team@lumenafterschool.example.com</field>
             <field name="phone">+1 555-020-1600</field>
         </record>
         <record id="company_lumen_edtech" model="res.company">
-            <field name="name">Lumen EdTech</field>
+            <field name="name">Lumen After-School</field>
             <field name="partner_id" ref="partner_lumen_edtech"/>
             <field name="parent_id" ref="base.main_company"/>
         </record>
         <record id="partner_manager_lumen_edtech" model="res.partner">
-            <field name="name">Lumen EdTech Manager</field>
-            <field name="email">manager@lumenedtech.demo</field>
+            <field name="name">Elena Morales</field>
+            <field name="email">elena@lumenafterschool.demo</field>
             <field name="company_id" ref="company_lumen_edtech"/>
         </record>
         <record id="user_manager_lumen_edtech" model="res.users" context="{'no_reset_password': True}">
             <field name="partner_id" ref="partner_manager_lumen_edtech"/>
-            <field name="login">manager@lumenedtech.demo</field>
+            <field name="login">elena@lumenafterschool.demo</field>
             <field name="password">demo</field>
             <field name="company_id" ref="company_lumen_edtech"/>
             <field name="company_ids" eval="[(6, 0, [ref('company_lumen_edtech')])]"/>
@@ -191,23 +191,23 @@
             <value eval="{'blueyellow_owner_id': ref('user_manager_lumen_edtech')}"/>
         </function>
         <record id="partner_prairie_agtech" model="res.partner">
-            <field name="name">Prairie AgTech</field>
-            <field name="email">grow@prairieagtech.example.com</field>
+            <field name="name">Prairie Soil Co-op</field>
+            <field name="email">office@prairiesoil.example.com</field>
             <field name="phone">+1 555-020-1700</field>
         </record>
         <record id="company_prairie_agtech" model="res.company">
-            <field name="name">Prairie AgTech</field>
+            <field name="name">Prairie Soil Co-op</field>
             <field name="partner_id" ref="partner_prairie_agtech"/>
             <field name="parent_id" ref="base.main_company"/>
         </record>
         <record id="partner_manager_prairie_agtech" model="res.partner">
-            <field name="name">Prairie AgTech Manager</field>
-            <field name="email">manager@prairieagtech.demo</field>
+            <field name="name">Dan Fischer</field>
+            <field name="email">dan@prairiesoil.demo</field>
             <field name="company_id" ref="company_prairie_agtech"/>
         </record>
         <record id="user_manager_prairie_agtech" model="res.users" context="{'no_reset_password': True}">
             <field name="partner_id" ref="partner_manager_prairie_agtech"/>
-            <field name="login">manager@prairieagtech.demo</field>
+            <field name="login">dan@prairiesoil.demo</field>
             <field name="password">demo</field>
             <field name="company_id" ref="company_prairie_agtech"/>
             <field name="company_ids" eval="[(6, 0, [ref('company_prairie_agtech')])]"/>
@@ -218,23 +218,23 @@
             <value eval="{'blueyellow_owner_id': ref('user_manager_prairie_agtech')}"/>
         </function>
         <record id="partner_quantum_retail" model="res.partner">
-            <field name="name">Quantum Retail Labs</field>
-            <field name="email">labs@quantumretail.example.com</field>
+            <field name="name">Quantum Vintage (online)</field>
+            <field name="email">orders@quantumvintage.example.com</field>
             <field name="phone">+1 555-020-1800</field>
         </record>
         <record id="company_quantum_retail" model="res.company">
-            <field name="name">Quantum Retail Labs</field>
+            <field name="name">Quantum Vintage (online)</field>
             <field name="partner_id" ref="partner_quantum_retail"/>
             <field name="parent_id" ref="base.main_company"/>
         </record>
         <record id="partner_manager_quantum_retail" model="res.partner">
-            <field name="name">Quantum Retail Manager</field>
-            <field name="email">manager@quantumretail.demo</field>
+            <field name="name">Sasha Kim</field>
+            <field name="email">sasha@quantumvintage.demo</field>
             <field name="company_id" ref="company_quantum_retail"/>
         </record>
         <record id="user_manager_quantum_retail" model="res.users" context="{'no_reset_password': True}">
             <field name="partner_id" ref="partner_manager_quantum_retail"/>
-            <field name="login">manager@quantumretail.demo</field>
+            <field name="login">sasha@quantumvintage.demo</field>
             <field name="password">demo</field>
             <field name="company_id" ref="company_quantum_retail"/>
             <field name="company_ids" eval="[(6, 0, [ref('company_quantum_retail')])]"/>
@@ -245,23 +245,23 @@
             <value eval="{'blueyellow_owner_id': ref('user_manager_quantum_retail')}"/>
         </function>
         <record id="partner_riverside_muni" model="res.partner">
-            <field name="name">Riverside Municipal Services</field>
-            <field name="email">admin@riversidemuni.example.com</field>
+            <field name="name">Riverside Parks &amp; Rec</field>
+            <field name="email">web@riversideparks.example.com</field>
             <field name="phone">+1 555-020-1900</field>
         </record>
         <record id="company_riverside_muni" model="res.company">
-            <field name="name">Riverside Municipal Services</field>
+            <field name="name">Riverside Parks &amp; Rec</field>
             <field name="partner_id" ref="partner_riverside_muni"/>
             <field name="parent_id" ref="base.main_company"/>
         </record>
         <record id="partner_manager_riverside_muni" model="res.partner">
-            <field name="name">Riverside Municipal Manager</field>
-            <field name="email">manager@riversidemuni.demo</field>
+            <field name="name">Pat Nguyen</field>
+            <field name="email">pat@riversideparks.demo</field>
             <field name="company_id" ref="company_riverside_muni"/>
         </record>
         <record id="user_manager_riverside_muni" model="res.users" context="{'no_reset_password': True}">
             <field name="partner_id" ref="partner_manager_riverside_muni"/>
-            <field name="login">manager@riversidemuni.demo</field>
+            <field name="login">pat@riversideparks.demo</field>
             <field name="password">demo</field>
             <field name="company_id" ref="company_riverside_muni"/>
             <field name="company_ids" eval="[(6, 0, [ref('company_riverside_muni')])]"/>
@@ -272,23 +272,23 @@
             <value eval="{'blueyellow_owner_id': ref('user_manager_riverside_muni')}"/>
         </function>
         <record id="partner_stellar_aero" model="res.partner">
-            <field name="name">Stellar Aerospace</field>
-            <field name="email">hr@stellaraero.example.com</field>
+            <field name="name">Stellar UAV Services</field>
+            <field name="email">ops@stellaruav.example.com</field>
             <field name="phone">+1 555-020-2000</field>
         </record>
         <record id="company_stellar_aero" model="res.company">
-            <field name="name">Stellar Aerospace</field>
+            <field name="name">Stellar UAV Services</field>
             <field name="partner_id" ref="partner_stellar_aero"/>
             <field name="parent_id" ref="base.main_company"/>
         </record>
         <record id="partner_manager_stellar_aero" model="res.partner">
-            <field name="name">Stellar Aerospace Manager</field>
-            <field name="email">manager@stellaraero.demo</field>
+            <field name="name">Lee Hoffman</field>
+            <field name="email">lee@stellaruav.demo</field>
             <field name="company_id" ref="company_stellar_aero"/>
         </record>
         <record id="user_manager_stellar_aero" model="res.users" context="{'no_reset_password': True}">
             <field name="partner_id" ref="partner_manager_stellar_aero"/>
-            <field name="login">manager@stellaraero.demo</field>
+            <field name="login">lee@stellaruav.demo</field>
             <field name="password">demo</field>
             <field name="company_id" ref="company_stellar_aero"/>
             <field name="company_ids" eval="[(6, 0, [ref('company_stellar_aero')])]"/>
@@ -299,23 +299,23 @@
             <value eval="{'blueyellow_owner_id': ref('user_manager_stellar_aero')}"/>
         </function>
         <record id="partner_timberline" model="res.partner">
-            <field name="name">Timberline Construction</field>
-            <field name="email">projects@timberline.example.com</field>
+            <field name="name">Timberline Remodeling</field>
+            <field name="email">estimates@timberlineremodel.example.com</field>
             <field name="phone">+1 555-020-2100</field>
         </record>
         <record id="company_timberline" model="res.company">
-            <field name="name">Timberline Construction</field>
+            <field name="name">Timberline Remodeling</field>
             <field name="partner_id" ref="partner_timberline"/>
             <field name="parent_id" ref="base.main_company"/>
         </record>
         <record id="partner_manager_timberline" model="res.partner">
-            <field name="name">Timberline Construction Manager</field>
-            <field name="email">manager@timberline.demo</field>
+            <field name="name">Carla Mendez</field>
+            <field name="email">carla@timberlineremodel.demo</field>
             <field name="company_id" ref="company_timberline"/>
         </record>
         <record id="user_manager_timberline" model="res.users" context="{'no_reset_password': True}">
             <field name="partner_id" ref="partner_manager_timberline"/>
-            <field name="login">manager@timberline.demo</field>
+            <field name="login">carla@timberlineremodel.demo</field>
             <field name="password">demo</field>
             <field name="company_id" ref="company_timberline"/>
             <field name="company_ids" eval="[(6, 0, [ref('company_timberline')])]"/>
