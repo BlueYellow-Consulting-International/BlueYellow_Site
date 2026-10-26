@@ -115,6 +115,8 @@ services:
 
 volumes:
   db_data:
+    external: true
+    name: blueyellow_site_postgres_data
   flectra_db_data:
   flectra_data:
 

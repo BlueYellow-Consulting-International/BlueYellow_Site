@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from flectra import _, api, fields, models
-from flectra.exceptions import ValidationError
+from flectra.exceptions import AccessError, ValidationError
 
 
 class HrJob(models.Model):
@@ -15,6 +15,16 @@ class HrJob(models.Model):
         tracking=True,
         copy=False,
     )
+
+    def can_access_from_current_website(self, website_id=False):
+        try:
+            return super().can_access_from_current_website(website_id)
+        except AccessError:
+            # The multi-company rule hides website_id from users outside the
+            # job's company, which _pre_dispatch turns into a 403 before any
+            # controller runs. Evaluate website visibility with sudo;
+            # publication is still enforced when rendering the page.
+            return self.sudo().can_access_from_current_website(website_id)
 
     @api.constrains("project_id", "company_id")
     def _check_project_company(self):

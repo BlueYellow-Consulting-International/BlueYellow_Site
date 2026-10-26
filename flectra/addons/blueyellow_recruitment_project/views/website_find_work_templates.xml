@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+
+    <!-- Marketplace gig list (external id: blueyellow_recruitment_project.jobs_showcase). -->
+    <template id="jobs_showcase" name="Marketplace gigs">
+        <t t-call="website_hr_recruitment.index"/>
+    </template>
+
+    <template id="find_work" name="find_work">
+        <t t-call="blueyellow_recruitment_project.jobs_showcase"/>
+    </template>
+
+</flectra>

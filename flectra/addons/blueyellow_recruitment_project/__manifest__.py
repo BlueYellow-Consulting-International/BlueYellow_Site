@@ -2,7 +2,7 @@
 {
     "name": "BlueYellow Recruitment Project",
     "summary": "Link recruitment jobs to projects and connect hires to delivery.",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "category": "BlueYellow",
     "depends": [
         "hr_recruitment",
@@ -11,7 +11,9 @@
         "blueyellow_client",
     ],
     "data": [
+        "security/hr_job_rules.xml",
         "views/hr_job_views.xml",
+        "views/website_find_work_templates.xml",
     ],
     "demo": [
         "demo/hr_job_demo.xml",
