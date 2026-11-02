@@ -5,10 +5,6 @@
 **/dist
 **/coverage
 
-# Legacy two-folder layout (not needed in images)
-consulting-platform-backend
-consulting-platform-frontend
-
 # Flectra stack: heavy runtime data not needed in image context
 flectra/postgres_data
 flectra/var

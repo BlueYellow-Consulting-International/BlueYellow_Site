@@ -59,7 +59,6 @@ model OutboxEvent {
   @@map("outbox_events")
 }
 
-// Platform accounts (ported from consulting-platform-backend)
 model User {
   id           String   @id @default(cuid())
   email        String   @unique
@@ -70,7 +69,6 @@ model User {
   @@map("users")
 }
 
-// Client records (ported from consulting-platform-backend)
 model Client {
   id        String   @id @default(cuid())
   name      String

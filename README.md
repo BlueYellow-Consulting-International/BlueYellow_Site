@@ -87,14 +87,13 @@ adjust the `ports:` entries in `docker-compose.yml` (or put a reverse proxy in
 front — the containers register themselves on their compose network as
 `consulting-web` / `consulting-api`).
 
-## Flectra (optional development stack)
+## Flectra (CRM stack)
 
-`flectra/` contains the CRM integration resources — custom addons, docker
-setup and design/workflow docs. A fully self-contained Flectra stack for local
-experiments is available behind a compose profile:
+`flectra/` is the canonical Flectra deployment — custom addons, Docker setup,
+and design/workflow docs. Run it from that directory:
 
 ```bash
-docker compose --profile flectra up -d
+cd flectra && cp .env.example .env && docker compose up -d
 ```
 
 Whether the worker needs a live Flectra is controlled by
@@ -117,7 +116,3 @@ pnpm dev                    # web :3000 · api :4000 · crm · worker
 ```
 
 Each app also has its own `typecheck` script; `pnpm typecheck` runs them all.
-
-> The `consulting-platform-backend/` and `consulting-platform-frontend/`
-> directories are remnants of the pre-monorepo layout and are scheduled for
-> removal.
