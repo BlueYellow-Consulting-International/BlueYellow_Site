@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <!-- The stock multi-company rule also applies to reads, so website-published
+         jobs of other companies are unreadable during URL dispatch (404 for
+         anonymous visitors, 403 for consultants) before any controller runs.
+         Read access is already governed by the public/portal/officer group
+         rules (public and portal see published jobs only), so this global rule
+         keeps enforcing company ownership for write/create/unlink only.
+         noupdate="0" is required: the stock record is flagged noupdate. -->
+    <data noupdate="0">
+        <record id="hr.hr_job_comp_rule" model="ir.rule">
+            <field name="perm_read" eval="False"/>
+        </record>
+    </data>
+</flectra>

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from flectra import api, models
+from flectra.models import NewId
 
 
 class HrJob(models.Model):
@@ -38,7 +39,9 @@ class HrJob(models.Model):
         )
 
     def read(self, fields=None, load="_classic_read"):
-        if self._blueyellow_consultant_job_pool():
+        if self._blueyellow_consultant_job_pool() and not any(
+            isinstance(id_, NewId) for id_ in self._ids
+        ):
             published = self.sudo().filtered("is_published")
             return super(HrJob, published).read(fields=fields, load=load)
         return super().read(fields=fields, load=load)

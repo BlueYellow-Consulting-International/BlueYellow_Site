@@ -76,6 +76,8 @@ services:
 
 volumes:
   db_data:
+    external: true
+    name: blueyellow_site_postgres_data
 
 networks:
   proxy:
